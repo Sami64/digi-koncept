@@ -7,7 +7,7 @@ const Header: NextPage = () => {
 	const router = useRouter();
 	return (
 		<header>
-			<div className="flex bg-digi_primary p-20 items-center py-2 flex-grow">
+			<div className="flex bg-digi_primary p-20 items-center py-2 flex-grow fixed top-0 left-0 right-0 z-10">
 				<div className="mt-2 flex items-center flex-grow sm:flex-grow-0">
 					<Image
 						onClick={() => router.push("/")}
