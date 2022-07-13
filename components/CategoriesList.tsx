@@ -3,6 +3,7 @@ import React from "react";
 import CategoryCard from "./CategoryCard";
 
 const CategoriesList: NextPage = () => {
+
 	return (
 		<div className="mt-10 justify-center flex flex-col items-center">
 			<h1 className="text-4xl capitalize text-center">choose a category</h1>

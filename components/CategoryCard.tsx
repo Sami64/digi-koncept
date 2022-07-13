@@ -20,7 +20,10 @@ const CategoryCard: NextPage = (props: Props) => {
 			<h4 className="my-3 font-bold capitalize cursor-default text-lg py-2">
 				computer programming
 			</h4>
-			<button className="mt-auto border-2 border-gray-200 rounded-full px-3 py-2 text-gray-400 text-lg">
+			<button
+				onClick={() => router.push("/categories/cat2/feed")}
+				className="mt-auto border-2 border-gray-200 rounded-full px-3 py-2 text-gray-400 text-lg hover:bg-digi_primary hover:text-white"
+			>
 				32 Creatives
 			</button>
 		</div>
