@@ -1,12 +1,15 @@
 import type { NextPage } from "next";
+import Image from "next/image";
 import { useRouter } from "next/router";
+import bannerImg from "../public/slider1.jpg";
 
 const Banner: NextPage = () => {
 	const router = useRouter();
-    
+
 	return (
-		<div className="flex w-full h-96 bg-banner-image bg-cover items-center justify-center ">
-			<div className="flex flex-col backdrop-opacity-10 bg-black/30 w-full h-full items-center justify-center">
+		<div className="relative h-[400px] sm:h-[500px] lg:h-[600px] xl:h-[700px] 2xl:h-[800px]">
+			<Image src={bannerImg} layout="fill" objectFit="cover" />
+			<div className="absolute text-center w-full h-full backdrop-opacity-10 bg-black/30 flex flex-col items-center justify-center">
 				<h1 className="text-5xl uppercase font-extrabold text-white text-center">
 					find the best kreators around you
 				</h1>
