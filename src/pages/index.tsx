@@ -22,7 +22,7 @@ const Home: NextPage = () => {
 	};
 
 	return (
-		<div className="bg-white">
+		<div className="bg-digi_background">
 			<Head>
 				<title>DigiKoncept</title>
 				<link rel="icon" href="/favicon.ico" />

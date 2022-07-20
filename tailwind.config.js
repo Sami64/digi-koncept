@@ -15,6 +15,9 @@ module.exports = {
 					DEFAULT: "#f36523",
 					light: "#faebe4",
 				},
+				digi_background: {
+					DEFAULT: "#F8F8F8",
+				},
 			},
 		},
 	},
