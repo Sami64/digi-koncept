@@ -16,7 +16,7 @@ const Banner: React.FC = () => {
 				<h3 className="capitalize text-white">Lorem epsum epmsu stuff</h3>
 				<button
 					onClick={() => router.push("/map")}
-					className=" mt-4 capitalize border-2 border-gray-200 hover:border-digi_primary hover:bg-digi_primary rounded-full px-3 py-2 text-white text-lg"
+					className=" mt-4 capitalize border-2 border-gray-200 hover:border-digi_primary hover:bg-digi_primary hover:shadow-lg rounded-full px-3 py-2 text-white text-lg"
 				>
 					find your kreators
 				</button>

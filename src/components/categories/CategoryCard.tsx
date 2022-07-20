@@ -4,9 +4,11 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-type Props = {};
+type Props = {
+	categoryId: string;
+};
 
-const CategoryCard: NextPage = (props: Props) => {
+const CategoryCard: React.FC<Props> = ({ categoryId }) => {
 	const router = useRouter();
 	return (
 		<div className="relative flex flex-col m-5 bg-white p-10 drop-shadow-xl items-center justify-center">
@@ -21,7 +23,7 @@ const CategoryCard: NextPage = (props: Props) => {
 				computer programming
 			</h4>
 			<button
-				onClick={() => router.push("/categories/cat2/feed")}
+				onClick={() => router.push(`/categories/${categoryId}/feed`)}
 				className="mt-auto border-2 border-gray-200 rounded-full px-3 py-2 text-gray-400 text-lg hover:bg-digi_primary hover:text-white"
 			>
 				32 Creatives

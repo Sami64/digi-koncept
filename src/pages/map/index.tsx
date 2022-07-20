@@ -4,10 +4,9 @@ import React, { useEffect, useRef, useState } from "react";
 import Map, { GeolocateControl, MapRef } from "react-map-gl";
 import { UserLocation } from "../../core/users/types";
 
-
 const MapHome: NextPage = () => {
 	const mapRef = useRef<MapRef>();
-	
+
 	const [userLocation, setUserLocation] = useState<UserLocation>({
 		longitude: 6.675434,
 		latitude: 6.675434,
@@ -16,7 +15,7 @@ const MapHome: NextPage = () => {
 	const [viewState, setViewState] = useState({
 		longitude: userLocation.longitude,
 		latitude: userLocation.latitude,
-		zoom: 10,
+		zoom: 16,
 	});
 
 	const getPositionSuccess = (position: GeolocationPosition) => {
@@ -24,6 +23,12 @@ const MapHome: NextPage = () => {
 		setUserLocation({
 			latitude: position.coords.latitude,
 			longitude: position.coords.longitude,
+		});
+
+		setViewState({
+			longitude: userLocation.longitude,
+			latitude: userLocation.latitude,
+			zoom: 16,
 		});
 	};
 
