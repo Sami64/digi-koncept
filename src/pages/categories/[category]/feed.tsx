@@ -1,6 +1,6 @@
 import { NextPage } from "next";
-import Header from "../../../components/Header";
-import Banner from "../../../components/Banner";
+import Header from "../../../core/Header";
+import Banner from "../../../core/Banner";
 
 const Feed: NextPage = () => {
 	return (

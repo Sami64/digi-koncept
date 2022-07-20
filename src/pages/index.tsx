@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import CategoriesList from "../components/CategoriesList";
-import Header from "../components/Header";
+import CategoriesList from "../core/CategoriesList";
+import Header from "../core/Header";
 import { useRouter } from "next/router";
-import Banner from "../components/Banner";
+import Banner from "../core/Banner";
 
 const Home: NextPage = () => {
 	const router = useRouter();
@@ -12,10 +12,7 @@ const Home: NextPage = () => {
 			<Head>
 				<title>DigiKoncept</title>
 				<link rel="icon" href="/favicon.ico" />
-				<link
-					href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css"
-					rel="stylesheet"
-				/>
+				
 			</Head>
 
 			<Header />

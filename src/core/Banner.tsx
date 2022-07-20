@@ -1,9 +1,9 @@
-import type { NextPage } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import bannerImg from "../public/slider1.jpg";
+import React from "react";
+import bannerImg from "../../public/slider1.jpg";
 
-const Banner: NextPage = () => {
+const Banner: React.FC = () => {
 	const router = useRouter();
 
 	return (
