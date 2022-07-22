@@ -6,9 +6,10 @@ import { useRouter } from "next/router";
 
 type Props = {
 	categoryId: string;
+	title: string;
 };
 
-const CategoryCard: React.FC<Props> = ({ categoryId }) => {
+const CategoryCard: React.FC<Props> = ({ categoryId, title }) => {
 	const router = useRouter();
 	return (
 		<div className="relative flex flex-col m-5 bg-white p-10 drop-shadow-xl items-center justify-center">
@@ -20,7 +21,7 @@ const CategoryCard: React.FC<Props> = ({ categoryId }) => {
 			/>
 
 			<h4 className="my-3 font-bold capitalize cursor-default text-lg py-2">
-				computer programming
+				{title}
 			</h4>
 			<button
 				onClick={() => router.push(`/categories/${categoryId}/feed`)}

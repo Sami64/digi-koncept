@@ -1,13 +1,22 @@
 import { NextPage } from "next";
-import Header from "../../../core/Header";
+import JobCard from "../../../components/job/JobCard";
 import Banner from "../../../core/Banner";
+import Header from "../../../core/Header";
 
 const Feed: NextPage = () => {
 	return (
-		<div>
+		<div className="bg-digi_background">
 			<Header />
 			<Banner />
-			feed
+			<div className="max-w-screen-lg mx-auto">
+				<JobCard />
+				<JobCard />
+				<JobCard />
+				<JobCard />
+				<JobCard />
+				<JobCard />
+				<JobCard />
+			</div>
 		</div>
 	);
 };

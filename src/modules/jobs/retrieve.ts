@@ -6,12 +6,18 @@ const jobsCollection = collection(db, "jobs");
 
 export const retrieveJobs = async (categoryId: string) => {
 	let jobs: Job[] = [];
-	const jobsQuery = query(jobsCollection, where("category", "==", categoryId));
+	const jobsQuery = query(jobsCollection, where("category.id", "==", categoryId));
 
 	const jobSnapshot = await getDocs(jobsQuery);
 	jobSnapshot.forEach((job) => {
-        jobs.push()
-    });
+		jobs.push({
+			id: job.id,
+			title: job.data()["title"],
+			kreator: job.data()["kreator"],
+			description: job.data()["description"],
+			category: job.data()['category']
+		});
+	});
 
 	return jobs;
 };

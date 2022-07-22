@@ -1,15 +1,15 @@
-import { app, db } from "../../../firebase";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-import { Category } from "../../core/categories/types";
+import { db } from "../../../firebase";
+import type { Category } from "../../core/categories/types";
 
 const categoriesCollection = collection(db, "categories");
 
 export const retrieveCategories = async () => {
-	let categories: Category[] = [];
+	const categories: Category[] = [];
 	const categoriesSnapshot = await getDocs(categoriesCollection);
 
 	categoriesSnapshot.docs.forEach((doc) =>
-		categories.push({ id: doc.id, title: doc.data()["title"] })
+		categories.push({ id: doc.id, title: doc.data().title })
 	);
 	return categories;
 };
@@ -22,7 +22,7 @@ export const retrieveCategory = async (categoryId: string) => {
 	if (snapshot.exists()) {
 		category = {
 			id: snapshot.id,
-			title: snapshot.data()["title"],
+			title: snapshot.data().title,
 		};
 
 		return category;

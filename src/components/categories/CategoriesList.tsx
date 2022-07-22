@@ -13,7 +13,7 @@ const CategoriesList: React.FC<Props> = ({ categories }) => {
 			<h1 className="text-4xl capitalize text-center">choose a category</h1>
 			<div className="grid grid-flow-row-dense md:grid-cols-4 lg:grid-clos-4  mx-auto">
 				{categories.map((category) => (
-					<CategoryCard key={category.id} categoryId={category.id}/>
+					<CategoryCard key={category.id} categoryId={category.id} title={category.title}/>
 				))}
 			</div>
 		</div>
