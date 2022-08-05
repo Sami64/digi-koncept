@@ -1,11 +1,39 @@
-import type { NextPage } from "next";
 import "mapbox-gl/dist/mapbox-gl.css";
-import React, { useEffect, useRef, useState } from "react";
-import Map, { GeolocateControl, MapRef } from "react-map-gl";
+import type {
+	GetServerSideProps,
+	InferGetServerSidePropsType,
+	NextPage,
+} from "next";
+import { useEffect, useMemo, useRef, useState } from "react";
+import Map, { GeolocateControl, MapRef, Marker, Popup } from "react-map-gl";
+import { JobLocation } from "../../core/job/types";
 import { UserLocation } from "../../core/users/types";
+import { retrieveJobLocations } from "../../modules/jobs/retrieve";
 
-const MapHome: NextPage = () => {
+const MapHome: NextPage = ({
+	jobLocations,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 	const mapRef = useRef<MapRef>();
+	const [popupInfo, setPopupInfo] = useState<JobLocation | null>(null);
+
+	const pins = useMemo(
+		() =>
+			jobLocations.map((location: JobLocation) => (
+				<Marker
+					key={location.id}
+					latitude={location.lat}
+					longitude={location.lng}
+					anchor="bottom"
+					onClick={(e) => {
+						e.originalEvent.stopPropagation();
+						setPopupInfo(location);
+					}}
+				>
+					<p className="cursor-pointer text-6xl animate-bounce">🕴 </p>
+				</Marker>
+			)),
+		[]
+	);
 
 	const [userLocation, setUserLocation] = useState<UserLocation>({
 		longitude: 6.675434,
@@ -65,9 +93,29 @@ const MapHome: NextPage = () => {
 				mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_GL_ACCESS_TOKEN}
 			>
 				<GeolocateControl showUserHeading={true} />
+
+				{pins}
+
+				{popupInfo && (
+					<Popup
+						anchor="top"
+						longitude={popupInfo.lng}
+						latitude={popupInfo.lat}
+						onClose={() => setPopupInfo(null)}
+					>
+						<p>It is pop up</p>
+					</Popup>
+				)}
 			</Map>
 		</>
 	);
 };
 
 export default MapHome;
+
+export const getServerSideProps: GetServerSideProps = async () => {
+	const jobLocations: JobLocation[] = await retrieveJobLocations();
+	return {
+		props: { jobLocations },
+	};
+};

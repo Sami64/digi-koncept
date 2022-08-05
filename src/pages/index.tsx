@@ -1,12 +1,13 @@
+import "antd/dist/antd.css";
 import type { NextPage } from "next";
 import Head from "next/head";
-import CategoriesList from "../components/categories/CategoriesList";
-import Header from "../core/Header";
 import { useRouter } from "next/router";
-import Banner from "../core/Banner";
 import { useEffect, useState } from "react";
-import { retrieveCategories } from "../modules/categories/retrieve";
+import CategoriesList from "../components/categories/CategoriesList";
+import Banner from "../core/Banner";
 import { Category } from "../core/categories/types";
+import Header from "../core/Header";
+import { retrieveCategories } from "../modules/categories/retrieve";
 
 const Home: NextPage = () => {
 	const router = useRouter();
@@ -18,7 +19,7 @@ const Home: NextPage = () => {
 
 	const getCategories = async () => {
 		const docs = await retrieveCategories();
-		setCategories(docs)
+		setCategories(docs);
 	};
 
 	return (
