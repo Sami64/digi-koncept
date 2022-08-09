@@ -6,7 +6,7 @@ import type {
 	NextPage,
 } from "next";
 import Image from "next/image";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Ref, useEffect, useMemo, useRef, useState } from "react";
 import Map, { GeolocateControl, MapRef, Marker, Popup } from "react-map-gl";
 import bannerImg from "../../../public/slider1.jpg";
 import { JobLocation } from "../../core/job/types";
@@ -88,7 +88,7 @@ const MapHome: NextPage = ({
 		<>
 			<Map
 				{...viewState}
-				ref={mapRef}
+				ref={mapRef as Ref<MapRef>}
 				onMove={(evt) => setViewState(evt.viewState)}
 				onLoad={onMapLoad}
 				mapStyle="mapbox://styles/mapbox/streets-v11"
