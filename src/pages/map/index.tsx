@@ -1,11 +1,14 @@
+import { BriefcaseIcon, PhoneIcon, UserIcon } from "@heroicons/react/outline";
 import "mapbox-gl/dist/mapbox-gl.css";
 import type {
 	GetServerSideProps,
 	InferGetServerSidePropsType,
 	NextPage,
 } from "next";
+import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Map, { GeolocateControl, MapRef, Marker, Popup } from "react-map-gl";
+import bannerImg from "../../../public/slider1.jpg";
 import { JobLocation } from "../../core/job/types";
 import { UserLocation } from "../../core/users/types";
 import { retrieveJobLocations } from "../../modules/jobs/retrieve";
@@ -102,8 +105,33 @@ const MapHome: NextPage = ({
 						longitude={popupInfo.lng}
 						latitude={popupInfo.lat}
 						onClose={() => setPopupInfo(null)}
+						className="w-full"
 					>
-						<p>It is pop up</p>
+						<Image
+							src={bannerImg}
+							layout="fill"
+							objectFit="cover"
+							className="h-2/4"
+						/>
+						<div className="relative backdrop-opacity-10 bg-black/70 rounded-xl shadow-2xl w-full p-4">
+							<h1 className="text-lg flex items-center text-white font-bold my-2">
+								<BriefcaseIcon className="h-5 mr-2 flex-none" />
+								<span className="line-clamp-1 flex-1">
+									Title Name asdwasd asdasdasdasdasdefassdasdasdsad
+								</span>
+							</h1>
+							<h1 className="text-lg flex items-center text-white font-bold my-2">
+								<PhoneIcon className="h-5 mr-2 flex-none" />
+								<span>+233501083601</span>
+							</h1>
+							<h1 className="text-lg flex items-center text-white font-bold my-2">
+								<UserIcon className="h-5 mr-2 flex-none" />
+								<span>Samuel Paintsil</span>
+							</h1>
+							<button className="bg-digi_primary w-full hover:border-white hover:border-2 hover:shadow-lg rounded-lg text-lg uppercase font-bold text-white hover:bg-transparent">
+								More
+							</button>
+						</div>
 					</Popup>
 				)}
 			</Map>

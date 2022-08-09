@@ -10,18 +10,135 @@ import { Modal, Tabs } from "antd";
 import { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import MultiImagePreview from "../../../components/categories/MultiImagePreview";
 import Banner from "../../../core/Banner";
+import { handleValidation } from "../../../core/categories/helpers/handleValidation";
 import Header from "../../../core/Header";
 import { Job } from "../../../core/job/types";
 import { retrieveJob } from "../../../modules/jobs/retrieve";
 
 const { TabPane } = Tabs;
 
+const EmailModal: React.FC = () => {
+	const [subject, setSubject] = useState("");
+	const [message, setMessage] = useState("");
+	const [email, setEmail] = useState("");
+	const [errors, setErrors] = useState({});
+	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+	const [showFailureMessage, setShowFailureMessage] = useState(false);
+
+	const handleOnSubmit = async (e: any) => {
+		e.preventDefault();
+
+		const validationResult = handleValidation(
+			"User Auth Name",
+			email,
+			message,
+			subject
+		);
+
+		console.log("Validation Result", validationResult);
+
+		if (validationResult.isValid) {
+			const result = await fetch("/api/sendgrid", {
+				body: JSON.stringify({
+					email,
+					subject,
+					message,
+					fullname: "User Auth Name",
+				}),
+				headers: { "Content-Type": "application/json" },
+				method: "POST",
+			});
+
+			const { error } = await result.json();
+			if (error) {
+				console.log(error);
+				setShowFailureMessage(true);
+
+				return;
+			}
+
+			setShowSuccessMessage(true);
+		}
+	};
+
+	return (
+		<div>
+			<form
+				className="flex flex-col px-8 py-8 bg-white "
+				onSubmit={handleOnSubmit}
+			>
+				<h1 className="text-2xl font-bold ">Send an email</h1>
+
+				{/* <label htmlFor="fullname" className="text-gray-500 font-light mt-8 ">
+					Full name<span className="text-red-500 ">*</span>
+				</label>
+				<input
+					type="text"
+					name="fullname"
+					className="bg-transparent border-b py-2 pl-4 focus:outline-none focus:rounded-md focus:ring-1 ring-green-500 font-light text-gray-500"
+				/> */}
+
+				<label htmlFor="email" className="text-gray-500 font-light mt-4 ">
+					E-mail<span className="text-red-500">*</span>
+				</label>
+				<input
+					type="email"
+					name="email"
+					value={email}
+					onChange={(e) => setEmail(e.target.value)}
+					required
+					className="bg-transparent border-b py-2 pl-4 focus:outline-none focus:rounded-md focus:ring-1 ring-green-500 font-light text-gray-500"
+				/>
+
+				<label htmlFor="subject" className="text-gray-500 font-light mt-4 ">
+					Subject<span className="text-red-500">*</span>
+				</label>
+				<input
+					type="text"
+					name="subject"
+					required
+					value={subject}
+					onChange={(e) => setSubject(e.target.value)}
+					className="bg-transparent border-b py-2 pl-4 focus:outline-none focus:rounded-md focus:ring-1 ring-green-500 font-light text-gray-500"
+				/>
+
+				<label htmlFor="message" className="text-gray-500 font-light mt-4 ">
+					Message<span className="text-red-500">*</span>
+				</label>
+				<textarea
+					name="message"
+					required
+					value={message}
+					onChange={(e) => setMessage(e.target.value)}
+					className="bg-transparent border-b py-2 pl-4 focus:outline-none focus:rounded-md focus:ring-1 ring-green-500 font-light text-gray-500"
+				></textarea>
+				<div className="flex flex-row items-center justify-start">
+					<button className="px-10 mt-8 py-2 bg-digi_primary text-gray-50 font-bold rounded-md w-full text-lg flex flex-row items-center justify-center hover:border-gray-600 border-2">
+						Send
+					</button>
+				</div>
+			</form>
+			{showSuccessMessage && (
+				<h1 className="text-lg font-bold text-green-500 capitalize text-center">
+					Email successfully sent 🎉{" "}
+				</h1>
+			)}
+			{showFailureMessage && (
+				<h1 className="text-lg font-bold text-red-500 capitalize text-center">
+					Something went wrong 😞
+				</h1>
+			)}
+		</div>
+	);
+};
+
 const DetailsPage: NextPage = () => {
 	const [job, setJob] = useState<Job>();
 	const [showPhoneNumber, setShowPhoneNumber] = useState(false);
+	const [showEmailModal, setShowEmailModal] = useState(false);
 	const router = useRouter();
 
 	const { details } = router.query;
@@ -86,9 +203,20 @@ const DetailsPage: NextPage = () => {
 								<ChatIcon className="h-5 mr-1" />
 							</button>
 
-							<button className="inline-flex bg-digi_primary items-center border text-white px-2 py-2 rounded-lg text-lg font-bold hover:shadow-xl hover:bg-white hover:text-digi_primary hover:border-digi_primary my-1">
+							<button
+								onClick={() => setShowEmailModal(true)}
+								className="inline-flex bg-digi_primary items-center border text-white px-2 py-2 rounded-lg text-lg font-bold hover:shadow-xl hover:bg-white hover:text-digi_primary hover:border-digi_primary my-1"
+							>
 								<EmailIcon className="h-5 mr-1" />
 							</button>
+							<Modal
+								centered
+								visible={showEmailModal}
+								onOk={() => setShowEmailModal(false)}
+								onCancel={() => setShowEmailModal(false)}
+							>
+								<EmailModal />
+							</Modal>
 						</div>
 					</div>
 					{/** Description */}
