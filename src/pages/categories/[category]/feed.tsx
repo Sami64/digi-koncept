@@ -1,16 +1,26 @@
 import { NextPage } from "next";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import JobCard from "../../../components/job/JobCard";
 import Banner from "../../../components/Banner";
 import Header from "../../../components/Header";
+import JobCard from "../../../components/job/JobCard";
 import { Job } from "../../../core/job/types";
 import { retrieveJobs } from "../../../modules/jobs/retrieve";
 
 const Feed: NextPage = () => {
 	const router = useRouter();
+	const { data: session, status } = useSession();
 	const { category } = router.query;
 	const [jobs, setJobs] = useState<Job[]>([]);
+
+	if (status == "loading") {
+		return <div>Loading</div>;
+	}
+
+	if (session?.user == null) {
+		router.replace("/auth/authenticate");
+	}
 
 	useEffect(() => {
 		getJobs();
@@ -44,3 +54,12 @@ const Feed: NextPage = () => {
 };
 
 export default Feed;
+
+// export const getServerSideProps: GetServerSideProps = async (
+// 	context: GetServerSidePropsContext
+// ) => {
+
+// 	return {
+// 		props: { session },
+// 	};
+// };
