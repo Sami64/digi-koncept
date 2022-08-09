@@ -2,8 +2,8 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import JobCard from "../../../components/job/JobCard";
-import Banner from "../../../core/Banner";
-import Header from "../../../core/Header";
+import Banner from "../../../components/Banner";
+import Header from "../../../components/Header";
 import { Job } from "../../../core/job/types";
 import { retrieveJobs } from "../../../modules/jobs/retrieve";
 
@@ -17,7 +17,7 @@ const Feed: NextPage = () => {
 	}, []);
 
 	const getJobs = async () => {
-		const docs = await retrieveJobs(category);
+		const docs = await retrieveJobs(category as string);
 		setJobs(docs);
 	};
 
@@ -28,7 +28,12 @@ const Feed: NextPage = () => {
 			<div className="max-w-screen-lg mx-auto py-5">
 				{jobs.length > 0 ? (
 					jobs.map((job) => (
-						<JobCard key={job.id} title={job.title} id={job.id} category={job.category} />
+						<JobCard
+							key={job.id}
+							title={job.title}
+							id={job.id}
+							category={job.category}
+						/>
 					))
 				) : (
 					<h3>No Jobs Here</h3>

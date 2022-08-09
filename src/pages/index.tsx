@@ -4,9 +4,9 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import CategoriesList from "../components/categories/CategoriesList";
-import Banner from "../core/Banner";
+import Banner from "../components/Banner";
 import { Category } from "../core/categories/types";
-import Header from "../core/Header";
+import Header from "../components/Header";
 import { retrieveCategories } from "../modules/categories/retrieve";
 
 const Home: NextPage = () => {

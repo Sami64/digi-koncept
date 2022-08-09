@@ -6,15 +6,15 @@ import ChatIcon from "@mui/icons-material/Chat";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import VideocamIcon from "@mui/icons-material/Videocam";
-import { Modal, Tabs } from "antd";
+import { Modal, Spin, Tabs } from "antd";
 import { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import MultiImagePreview from "../../../components/categories/MultiImagePreview";
-import Banner from "../../../core/Banner";
+import Banner from "../../../components/Banner";
 import { handleValidation } from "../../../core/categories/helpers/handleValidation";
-import Header from "../../../core/Header";
+import Header from "../../../components/Header";
 import { Job } from "../../../core/job/types";
 import { retrieveJob } from "../../../modules/jobs/retrieve";
 
@@ -27,9 +27,13 @@ const EmailModal: React.FC = () => {
 	const [errors, setErrors] = useState({});
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 	const [showFailureMessage, setShowFailureMessage] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	const handleOnSubmit = async (e: any) => {
 		e.preventDefault();
+		setShowSuccessMessage(false);
+		setShowFailureMessage(false);
+		setLoading(true);
 
 		const validationResult = handleValidation(
 			"User Auth Name",
@@ -56,11 +60,13 @@ const EmailModal: React.FC = () => {
 			if (error) {
 				console.log(error);
 				setShowFailureMessage(true);
+				setLoading(false);
 
 				return;
 			}
 
 			setShowSuccessMessage(true);
+			setLoading(false);
 		}
 	};
 
@@ -116,8 +122,16 @@ const EmailModal: React.FC = () => {
 					className="bg-transparent border-b py-2 pl-4 focus:outline-none focus:rounded-md focus:ring-1 ring-green-500 font-light text-gray-500"
 				></textarea>
 				<div className="flex flex-row items-center justify-start">
-					<button className="px-10 mt-8 py-2 bg-digi_primary text-gray-50 font-bold rounded-md w-full text-lg flex flex-row items-center justify-center hover:border-gray-600 border-2">
-						Send
+					<button
+						disabled={loading}
+						className=" disabled:cursor-not-allowed px-10 mt-8 py-2 bg-digi_primary text-gray-50 font-bold rounded-md w-full text-lg flex flex-row items-center justify-center hover:border-gray-600 border-2 disabled:border-0"
+					>
+						{!loading && "Send"}
+						{loading && (
+							<span className={`mx-2 backdrop-opacity-10`}>
+								<Spin />
+							</span>
+						)}
 					</button>
 				</div>
 			</form>
@@ -148,7 +162,7 @@ const DetailsPage: NextPage = () => {
 	}, []);
 
 	const getJob = async () => {
-		const doc = await retrieveJob(details);
+		const doc = await retrieveJob(details as string);
 		setJob(doc);
 	};
 
