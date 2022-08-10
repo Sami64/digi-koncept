@@ -6,7 +6,6 @@ import ChatIcon from "@mui/icons-material/Chat";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import { Modal, Spin, Tabs } from "antd";
-import axios from "axios";
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
@@ -169,14 +168,7 @@ const DetailsPage: NextPage = () => {
 	};
 
 	const handleStartChat = async () => {
-		const { status } = await axios.post("/api/comet/friends/add", {
-			uid: job?.kreator?.id.toLowerCase(),
-			userId: session?.userId,
-			kreatorName: job?.kreator?.name,
-			kreatorJob: job?.title
-		});
-		if (status == 200) router.push("/chat");
-		else alert("Error occured");
+		router.push("/chat");
 	};
 
 	return (

@@ -21,7 +21,9 @@
 		"mapbox-gl": "^2.9.1",
 		"next": "latest",
 		"next-auth": "^4.10.3",
+		"nextjs-chat-engine": "^1.11.1",
 		"react": "18.1.0",
+		"react-chat-engine": "^1.11.23",
 		"react-dom": "18.1.0",
 		"react-map-gl": "^7.0.17"
 	},
