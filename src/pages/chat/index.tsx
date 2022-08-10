@@ -1,26 +1,9 @@
-import dynamic from "next/dynamic";
 import { useEffect } from "react";
 
-declare global {
-	interface Window {
-		CometChat?: any;
-	}
-}
-
-const CometChatNoSSR = dynamic(() => import("../CometChatNoSSR"), {
-	ssr: false,
-});
-
 const Chat = () => {
-	useEffect(() => {
-		window.CometChat = require("@cometchat-pro/chat").CometChat;
-	}, []);
+	useEffect(() => {}, []);
 
-	return (
-		<div>
-			<CometChatNoSSR />
-		</div>
-	);
+	return <div>Chat</div>;
 };
 
 export default Chat;
