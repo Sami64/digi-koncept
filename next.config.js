@@ -5,6 +5,7 @@ module.exports = {
 		disableStaticImages: true,
 		domains: ["links.papareact.com", "images.unsplash.com"],
 	},
+	webpack5: true,
 	webpack: (config, options) => {
 		const { isServer } = options;
 		config.module.rules.push({
