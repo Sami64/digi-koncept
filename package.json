@@ -29,6 +29,7 @@
 		"react": "18.1.0",
 		"react-dom": "18.1.0",
 		"react-map-gl": "^7.0.17",
+		"react-scripts": "^5.0.1",
 		"twemoji": "^13.0.1"
 	},
 	"devDependencies": {
