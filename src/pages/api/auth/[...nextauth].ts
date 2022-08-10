@@ -11,6 +11,13 @@ export const authOptions: NextAuthOptions = {
 			clientSecret: process.env.GOOGLE_SECRET as string,
 		}),
 	],
+	callbacks: {
+		async session({ session, token, user }) {
+			session.userId = user?.id;
+			//session?.user?.id = user?.id;
+			return session;
+		},
+	},
 	adapter: FirestoreAdapter({
 		apiKey: process.env.FIREBASE_API_KEY,
 		appId: process.env.FIREBASE_APP_ID,
