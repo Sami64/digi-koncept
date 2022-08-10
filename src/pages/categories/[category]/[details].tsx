@@ -5,16 +5,17 @@ import {
 import ChatIcon from "@mui/icons-material/Chat";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
-import VideocamIcon from "@mui/icons-material/Videocam";
 import { Modal, Spin, Tabs } from "antd";
+import axios from "axios";
 import { NextPage } from "next";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import MultiImagePreview from "../../../components/categories/MultiImagePreview";
 import Banner from "../../../components/Banner";
-import { handleValidation } from "../../../core/categories/helpers/handleValidation";
+import MultiImagePreview from "../../../components/categories/MultiImagePreview";
 import Header from "../../../components/Header";
+import { handleValidation } from "../../../core/categories/helpers/handleValidation";
 import { Job } from "../../../core/job/types";
 import { retrieveJob } from "../../../modules/jobs/retrieve";
 
@@ -153,6 +154,7 @@ const DetailsPage: NextPage = () => {
 	const [job, setJob] = useState<Job>();
 	const [showPhoneNumber, setShowPhoneNumber] = useState(false);
 	const [showEmailModal, setShowEmailModal] = useState(false);
+	const { data: session, status } = useSession();
 	const router = useRouter();
 
 	const { details } = router.query;
@@ -164,6 +166,17 @@ const DetailsPage: NextPage = () => {
 	const getJob = async () => {
 		const doc = await retrieveJob(details as string);
 		setJob(doc);
+	};
+
+	const handleStartChat = async () => {
+		const { status } = await axios.post("/api/comet/friends/add", {
+			uid: job?.kreator?.id.toLowerCase(),
+			userId: session?.userId,
+			kreatorName: job?.kreator?.name,
+			kreatorJob: job?.title
+		});
+		if (status == 200) router.push("/chat");
+		else alert("Error occured");
 	};
 
 	return (
@@ -209,11 +222,10 @@ const DetailsPage: NextPage = () => {
 								<p>+233501083601</p>
 							</Modal>
 
-							<button className="inline-flex bg-digi_primary items-center border text-white px-2 py-2 rounded-lg text-lg font-bold hover:shadow-xl hover:bg-white hover:text-digi_primary hover:border-digi_primary my-1">
-								<VideocamIcon className="h-5 mr-1" />
-							</button>
-
-							<button className="inline-flex bg-digi_primary items-center border text-white px-2 py-2 rounded-lg text-lg font-bold hover:shadow-xl hover:bg-white hover:text-digi_primary hover:border-digi_primary my-1">
+							<button
+								onClick={handleStartChat}
+								className="inline-flex bg-digi_primary items-center border text-white px-2 py-2 rounded-lg text-lg font-bold hover:shadow-xl hover:bg-white hover:text-digi_primary hover:border-digi_primary my-1"
+							>
 								<ChatIcon className="h-5 mr-1" />
 							</button>
 

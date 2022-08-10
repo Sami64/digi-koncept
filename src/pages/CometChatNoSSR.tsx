@@ -16,6 +16,7 @@ const CometChatNoSSR = () => {
 
 		const initResult = await CometChat.init(constants.APP_ID, appSetting);
 		console.log("Comet Initialization", initResult);
+		return initResult;
 	};
 
 	const cometLogin = async () => {
@@ -28,8 +29,7 @@ const CometChatNoSSR = () => {
 	};
 
 	useEffect(() => {
-		initCometChat();
-		cometLogin();
+		initCometChat().then((res) => cometLogin());
 	}, []);
 
 	return (

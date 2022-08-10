@@ -22,21 +22,23 @@ const Home: NextPage = ({
 	const { data: session, status } = useSession();
 
 	const getCometUser = async () => {
-		const { data, status } = await axios.get(
-			`https://${constants.APP_ID}.api-${constants.REGION}.cometchat.io/v3/users/${session?.userId}`,
-			{
-				headers: {
-					"Content-Type": "application/json",
-					Accept: "applcation/json",
-					apiKey: constants.API_KEY,
-				},
-			}
-		);
+		try {
+			const { data, status } = await axios.get(
+				`https://${constants.APP_ID}.api-${constants.REGION}.cometchat.io/v3/users/${session?.userId}`,
+				{
+					headers: {
+						"Content-Type": "application/json",
+						Accept: "applcation/json",
+						apiKey: constants.API_KEY,
+					},
+				}
+			);
 
-		if (status == 200) {
-			console.log("Comet user in db", data);
-			return data;
-		}
+			if (status == 200) {
+				console.log("Comet user in db", data);
+				return data;
+			}
+		} catch (error) {}
 	};
 
 	const createCometUser = async () => {
