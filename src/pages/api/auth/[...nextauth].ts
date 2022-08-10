@@ -18,6 +18,7 @@ export const authOptions: NextAuthOptions = {
 			return session;
 		},
 	},
+	secret: process.env.NEXTAUTH_SECRET,
 	adapter: FirestoreAdapter({
 		apiKey: process.env.FIREBASE_API_KEY,
 		appId: process.env.FIREBASE_APP_ID,
