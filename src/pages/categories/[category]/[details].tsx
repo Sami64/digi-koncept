@@ -16,6 +16,8 @@ import MultiImagePreview from "../../../components/categories/MultiImagePreview"
 import Header from "../../../components/Header";
 import { handleValidation } from "../../../core/categories/helpers/handleValidation";
 import { Job } from "../../../core/job/types";
+import { createChatRoom } from "../../../modules/chat/create";
+import { retrieveRoom } from "../../../modules/chat/retrieve";
 import { retrieveJob } from "../../../modules/jobs/retrieve";
 
 const { TabPane } = Tabs;
@@ -168,7 +170,20 @@ const DetailsPage: NextPage = () => {
 	};
 
 	const handleStartChat = async () => {
-		router.push("/chat");
+		let roomId = "";
+		const roomExists = await retrieveRoom(
+			session?.userId as string,
+			job?.kreator.id as string
+		);
+
+		if (roomExists.length < 1) {
+			roomId = await createChatRoom(
+				session?.userId as string,
+				job?.kreator.id as string
+			);
+		} else roomId = roomExists[0].id;
+
+		router.push(`/chat/${roomId}`);
 	};
 
 	return (

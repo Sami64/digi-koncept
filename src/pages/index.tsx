@@ -20,34 +20,6 @@ const Home: NextPage = ({
 	const router = useRouter();
 	const { data: session, status } = useSession();
 
-	const createChatUser = async () => {
-		try {
-			const { data, status } = await axios.put(
-				"https://api.chatengine.io/users/",
-				{
-					secret: session?.userId,
-					username: session?.user?.name,
-				},
-				{
-					headers: {
-						"PRIVATE-KEY": process.env
-							.NEXT_PUBLIC_VERCEL_CHATENGINE_KEY as string,
-					},
-				}
-			);
-			if (status == 200) {
-				console.log("Chatengine user", data);
-			}
-		} catch (error: any) {
-			return alert(`Something went wrong ${error.message}`);
-		}
-	};
-
-	if (session?.user != null) {
-		console.log("Session stuff", session);
-		createChatUser();
-	}
-
 	return (
 		<div className="bg-digi_background">
 			<Head>
