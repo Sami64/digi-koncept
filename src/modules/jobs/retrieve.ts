@@ -47,7 +47,7 @@ export const retrieveJob = async (jobId: string) => {
 
 	if (snapshot.exists()) {
 		job = {
-			id: snapshot.id,
+			id: snapshot.data()["id"],
 			title: snapshot.data()["title"],
 			kreator: snapshot.data()["kreator"],
 			description: snapshot.data()["description"],

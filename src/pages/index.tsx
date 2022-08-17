@@ -1,4 +1,4 @@
-import "antd/dist/antd.css";
+
 import axios from "axios";
 import type {
 	GetServerSideProps,

@@ -1,7 +1,4 @@
-import {
-	ArrowCircleRightIcon,
-	LocationMarkerIcon,
-} from "@heroicons/react/solid";
+import { LocationMarkerIcon } from "@heroicons/react/solid";
 import ChatIcon from "@mui/icons-material/Chat";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
@@ -13,6 +10,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Banner from "../../../components/Banner";
 import MultiImagePreview from "../../../components/categories/MultiImagePreview";
+import VideosSection from "../../../components/categories/VideosSection";
 import Header from "../../../components/Header";
 import { handleValidation } from "../../../core/categories/helpers/handleValidation";
 import { Job } from "../../../core/job/types";
@@ -261,18 +259,7 @@ const DetailsPage: NextPage = () => {
 					<div className="my-2">
 						<Tabs defaultActiveKey="0">
 							<TabPane key={0} tab={<span>Videos</span>}>
-								<div className="grid gap-4 grid-cols-3 auto-rows-auto">
-									<div>1</div>
-									<div>1</div>
-									<div>1</div>
-									<div>1</div>
-									<div>1</div>
-									<div>1</div>
-									<div>1</div>
-									<div>1</div>
-									<div>1</div>
-									<div>1</div>
-								</div>
+								<VideosSection jobId={details as string} />
 							</TabPane>
 							<TabPane key={1} tab={<span>Images</span>}>
 								<MultiImagePreview />
@@ -282,7 +269,7 @@ const DetailsPage: NextPage = () => {
 							</TabPane>
 						</Tabs>
 					</div>
-					<div className="my-5">
+					{/* <div className="my-5">
 						<h5 className="text-4xl font-bold capitalize">creator perks</h5>
 						<ul>
 							<li className="flex text-xl items-center text-digi_primary font-bold capitalize my-4">
@@ -302,7 +289,7 @@ const DetailsPage: NextPage = () => {
 								<span>perk uno</span>
 							</li>
 						</ul>
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</div>
