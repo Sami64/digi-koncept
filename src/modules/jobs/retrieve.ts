@@ -23,6 +23,9 @@ export const retrieveJobs = async (id: string) => {
 			kreator: job.data()["kreator"],
 			description: job.data()["description"],
 			category: job.data()["category"],
+			videos: job.data()["videos"],
+			audios: job.data()["audios"],
+			images: job.data()["images"],
 		});
 	});
 
@@ -52,6 +55,9 @@ export const retrieveJob = async (jobId: string) => {
 			kreator: snapshot.data()["kreator"],
 			description: snapshot.data()["description"],
 			category: snapshot.data()["category"],
+			videos: snapshot.data()["videos"],
+			audios: snapshot.data()["audios"],
+			images: snapshot.data()["images"],
 		};
 
 		return job;

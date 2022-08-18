@@ -259,7 +259,12 @@ const DetailsPage: NextPage = () => {
 					<div className="my-2">
 						<Tabs defaultActiveKey="0">
 							<TabPane key={0} tab={<span>Videos</span>}>
-								<VideosSection jobId={details as string} />
+								{job != null && (
+									<VideosSection
+										jobId={details as string}
+										videos={job.videos}
+									/>
+								)}
 							</TabPane>
 							<TabPane key={1} tab={<span>Images</span>}>
 								<MultiImagePreview />

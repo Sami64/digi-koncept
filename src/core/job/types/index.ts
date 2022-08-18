@@ -7,6 +7,9 @@ export interface Job {
 	title: string;
 	description: string;
 	category: Category;
+	videos: string[];
+	audios: string[];
+	images: string[];
 }
 
 export interface JobLocation {

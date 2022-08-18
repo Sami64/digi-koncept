@@ -1,15 +1,25 @@
 import { useEffect } from "react";
+import ReactPlayer from "react-player/lazy";
 
 type Props = {
 	jobId: string;
+	videos: string[] | undefined;
 };
 
-const VideosSection: React.FC<Props> = ({ jobId }) => {
-	useEffect(() => {}, []);
+const VideosSection: React.FC<Props> = ({ jobId, videos }) => {
+	useEffect(() => {
+		console.log("Vids", videos);
+	}, []);
 
 	return (
 		<div className="grid gap-4 grid-cols-3 auto-rows-auto">
-			<div>1</div>
+			<ReactPlayer
+				url={videos ? videos[0] : ""}
+				controls
+				light
+				width={400}
+				height={200}
+			/>
 			<div>1</div>
 			<div>1</div>
 			<div>1</div>
