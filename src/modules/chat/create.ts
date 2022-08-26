@@ -1,31 +1,36 @@
-import { collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { collection, doc, serverTimestamp, setDoc } from "firebase/firestore"
+import { db } from "../../../firebase"
 
-export const createChatRoom = async (userId: string, kreatorId: string) => {
-	const roomCollection = collection(db, "rooms");
+export const createChatRoom = async (
+	userId: string,
+	kreatorId: string,
+	jobId: string
+) => {
+	const roomCollection = collection(db, "rooms")
 
-	const firestoreDoc = doc(roomCollection);
+	const firestoreDoc = doc(roomCollection)
 	await setDoc(firestoreDoc, {
 		id: firestoreDoc.id,
 		userId: userId,
 		kreatorId: kreatorId,
-	});
+		jobId: jobId,
+	})
 
-	return firestoreDoc.id;
-};
+	return firestoreDoc.id
+}
 
 export const sendChatMessage = async (
 	roomId: string,
 	message: string,
 	userId: string
 ) => {
-	const roomCollection = collection(db, "rooms", roomId, "messages");
+	const roomCollection = collection(db, "rooms", roomId, "messages")
 
-	const firestoreDoc = doc(roomCollection);
+	const firestoreDoc = doc(roomCollection)
 	await setDoc(firestoreDoc, {
 		id: firestoreDoc.id,
 		message,
 		userId,
 		timestamp: serverTimestamp(),
-	});
-};
+	})
+}

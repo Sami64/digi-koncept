@@ -1,48 +1,48 @@
-import { LocationMarkerIcon } from "@heroicons/react/solid";
-import ChatIcon from "@mui/icons-material/Chat";
-import EmailIcon from "@mui/icons-material/Email";
-import PhoneIcon from "@mui/icons-material/Phone";
-import { Modal, Spin, Tabs } from "antd";
-import { NextPage } from "next";
-import { useSession } from "next-auth/react";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import Banner from "../../../components/Banner";
-import MultiImagePreview from "../../../components/categories/MultiImagePreview";
-import VideosSection from "../../../components/categories/VideosSection";
-import Header from "../../../components/Header";
-import { handleValidation } from "../../../core/categories/helpers/handleValidation";
-import { Job } from "../../../core/job/types";
-import { createChatRoom } from "../../../modules/chat/create";
-import { retrieveRoom } from "../../../modules/chat/retrieve";
-import { retrieveJob } from "../../../modules/jobs/retrieve";
+import { LocationMarkerIcon } from "@heroicons/react/solid"
+import ChatIcon from "@mui/icons-material/Chat"
+import EmailIcon from "@mui/icons-material/Email"
+import PhoneIcon from "@mui/icons-material/Phone"
+import { Modal, Spin, Tabs } from "antd"
+import { NextPage } from "next"
+import { useSession } from "next-auth/react"
+import Head from "next/head"
+import { useRouter } from "next/router"
+import React, { useEffect, useState } from "react"
+import Banner from "../../../components/Banner"
+import MultiImagePreview from "../../../components/categories/MultiImagePreview"
+import VideosSection from "../../../components/categories/VideosSection"
+import Header from "../../../components/Header"
+import { handleValidation } from "../../../core/categories/helpers/handleValidation"
+import { Job } from "../../../core/job/types"
+import { createChatRoom } from "../../../modules/chat/create"
+import { retrieveRoom } from "../../../modules/chat/retrieve"
+import { retrieveJob } from "../../../modules/jobs/retrieve"
 
-const { TabPane } = Tabs;
+const { TabPane } = Tabs
 
 const EmailModal: React.FC = () => {
-	const [subject, setSubject] = useState("");
-	const [message, setMessage] = useState("");
-	const [email, setEmail] = useState("");
-	const [errors, setErrors] = useState({});
-	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-	const [showFailureMessage, setShowFailureMessage] = useState(false);
-	const [loading, setLoading] = useState(false);
+	const [subject, setSubject] = useState("")
+	const [message, setMessage] = useState("")
+	const [email, setEmail] = useState("")
+	const [errors, setErrors] = useState({})
+	const [showSuccessMessage, setShowSuccessMessage] = useState(false)
+	const [showFailureMessage, setShowFailureMessage] = useState(false)
+	const [loading, setLoading] = useState(false)
 
 	const handleOnSubmit = async (e: any) => {
-		e.preventDefault();
-		setShowSuccessMessage(false);
-		setShowFailureMessage(false);
-		setLoading(true);
+		e.preventDefault()
+		setShowSuccessMessage(false)
+		setShowFailureMessage(false)
+		setLoading(true)
 
 		const validationResult = handleValidation(
 			"User Auth Name",
 			email,
 			message,
 			subject
-		);
+		)
 
-		console.log("Validation Result", validationResult);
+		console.log("Validation Result", validationResult)
 
 		if (validationResult.isValid) {
 			const result = await fetch("/api/sendgrid", {
@@ -54,21 +54,21 @@ const EmailModal: React.FC = () => {
 				}),
 				headers: { "Content-Type": "application/json" },
 				method: "POST",
-			});
+			})
 
-			const { error } = await result.json();
+			const { error } = await result.json()
 			if (error) {
-				console.log(error);
-				setShowFailureMessage(true);
-				setLoading(false);
+				console.log(error)
+				setShowFailureMessage(true)
+				setLoading(false)
 
-				return;
+				return
 			}
 
-			setShowSuccessMessage(true);
-			setLoading(false);
+			setShowSuccessMessage(true)
+			setLoading(false)
 		}
-	};
+	}
 
 	return (
 		<div>
@@ -146,43 +146,44 @@ const EmailModal: React.FC = () => {
 				</h1>
 			)}
 		</div>
-	);
-};
+	)
+}
 
 const DetailsPage: NextPage = () => {
-	const [job, setJob] = useState<Job>();
-	const [showPhoneNumber, setShowPhoneNumber] = useState(false);
-	const [showEmailModal, setShowEmailModal] = useState(false);
-	const { data: session, status } = useSession();
-	const router = useRouter();
+	const [job, setJob] = useState<Job>()
+	const [showPhoneNumber, setShowPhoneNumber] = useState(false)
+	const [showEmailModal, setShowEmailModal] = useState(false)
+	const { data: session, status } = useSession()
+	const router = useRouter()
 
-	const { details } = router.query;
+	const { details } = router.query
 
 	useEffect(() => {
-		getJob();
-	}, []);
+		getJob()
+	}, [])
 
 	const getJob = async () => {
-		const doc = await retrieveJob(details as string);
-		setJob(doc);
-	};
+		const doc = await retrieveJob(details as string)
+		setJob(doc)
+	}
 
 	const handleStartChat = async () => {
-		let roomId = "";
+		let roomId = ""
 		const roomExists = await retrieveRoom(
 			session?.userId as string,
 			job?.kreator.id as string
-		);
+		)
 
 		if (roomExists.length < 1) {
 			roomId = await createChatRoom(
 				session?.userId as string,
-				job?.kreator.id as string
-			);
-		} else roomId = roomExists[0].id;
+				job?.kreator.id as string,
+				job?.id as string
+			)
+		} else roomId = roomExists[0].id
 
-		router.push(`/chat/${roomId}`);
-	};
+		router.push(`/chat/${roomId}`)
+	}
 
 	return (
 		<div className="bg-digi_background">
@@ -298,7 +299,7 @@ const DetailsPage: NextPage = () => {
 				</div>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default DetailsPage;
+export default DetailsPage
