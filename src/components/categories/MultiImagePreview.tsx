@@ -1,29 +1,20 @@
-import { Image } from "antd";
-import React from "react";
+import { Image } from "antd"
+import React from "react"
 
-const MultiImagePreview: React.FC = () => {
+interface Props {
+	images: string[] | undefined
+}
+
+const MultiImagePreview: React.FC<Props> = ({ images }) => {
 	return (
 		<div className="grid gap-4 grid-cols-3 auto-rows-auto">
 			<Image.PreviewGroup>
-				<Image
-					width={200}
-					src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-				/>
-				<Image
-					width={200}
-					src="https://gw.alipayobjects.com/zos/antfincdn/aPkFc8Sj7n/method-draw-image.svg"
-				/>
-				<Image
-					width={200}
-					src="https://gw.alipayobjects.com/zos/antfincdn/aPkFc8Sj7n/method-draw-image.svg"
-				/>
-				<Image
-					width={200}
-					src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-				/>
+				{images?.map((image, index) => (
+					<Image key={index} width={200} src={image} />
+				))}
 			</Image.PreviewGroup>
 		</div>
-	);
-};
+	)
+}
 
-export default MultiImagePreview;
+export default MultiImagePreview

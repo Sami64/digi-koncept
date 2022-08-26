@@ -9,7 +9,8 @@ import Head from "next/head"
 import { useRouter } from "next/router"
 import React, { useEffect, useState } from "react"
 import Banner from "../../../components/Banner"
-import MultiImagePreview from "../../../components/categories/MultiImagePreview"
+import AudiosSection from "../../../components/categories/AudiosSection"
+import ImagesSection from "../../../components/categories/ImagesSection"
 import VideosSection from "../../../components/categories/VideosSection"
 import Header from "../../../components/Header"
 import { handleValidation } from "../../../core/categories/helpers/handleValidation"
@@ -268,10 +269,10 @@ const DetailsPage: NextPage = () => {
 								)}
 							</TabPane>
 							<TabPane key={1} tab={<span>Images</span>}>
-								<MultiImagePreview />
+								<ImagesSection jobId={details as string} images={job?.images} />
 							</TabPane>
 							<TabPane key={2} tab={<span>Audio</span>}>
-								<div className="grid gap-4 grid-cols-3 auto-rows-auto"></div>
+								<AudiosSection jobId={details as string} audios={job?.audios} />
 							</TabPane>
 						</Tabs>
 					</div>
