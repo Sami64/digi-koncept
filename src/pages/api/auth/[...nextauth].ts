@@ -1,8 +1,9 @@
-import { FirestoreAdapter } from "@next-auth/firebase-adapter";
-import { NextApiRequest, NextApiResponse } from "next";
-import type { NextAuthOptions } from "next-auth";
-import NextAuth from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
+import { FirestoreAdapter } from "@next-auth/firebase-adapter"
+import { NextApiRequest, NextApiResponse } from "next"
+import type { NextAuthOptions } from "next-auth"
+import NextAuth from "next-auth"
+import GoogleProvider from "next-auth/providers/google"
+import { createClient } from "../../../modules/users/create"
 
 export const authOptions: NextAuthOptions = {
 	providers: [
@@ -13,9 +14,22 @@ export const authOptions: NextAuthOptions = {
 	],
 	callbacks: {
 		async session({ session, token, user }) {
-			session.userId = user?.id;
+			session.userId = user?.id
 			//session?.user?.id = user?.id;
-			return session;
+			return session
+		},
+		async signIn({ user, account, profile, email, credentials }) {
+			console.log("profile", profile)
+			console.log("account", account)
+			console.log("user", user)
+			console.log("credentials", credentials)
+			if (user?.id != null)
+				await createClient(
+					user?.id,
+					user?.name as string,
+					user?.email as string
+				)
+			return true
 		},
 	},
 	secret: process.env.NEXTAUTH_SECRET,
@@ -28,7 +42,7 @@ export const authOptions: NextAuthOptions = {
 		storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
 		messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
 	}),
-};
+}
 
 export default (req: NextApiRequest, res: NextApiResponse) =>
-	NextAuth(req, res, authOptions);
+	NextAuth(req, res, authOptions)
