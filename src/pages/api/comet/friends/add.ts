@@ -1,13 +1,16 @@
-import axios from "axios";
-import type { NextApiRequest, NextApiResponse } from "next";
-import constants from "../../../../core/utils/comet_constants";
+import axios from "axios"
+import type { NextApiRequest, NextApiResponse } from "next"
+import constants from "../../../../core/utils/comet_constants"
 
 export default async function addFriend(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
 	try {
-		const uid = req.body.uid.replaceAll(" ", "");
+		const uid = req.body.uid.replaceAll(" ", "")
+
+		console.log("first", uid)
+		console.log("req body", req.body)
 
 		const { data, status } = await axios.post(
 			`https://${constants.APP_ID}.api-${constants.REGION}.cometchat.io/v3/users/${req.body.userId}/friends`,
@@ -19,7 +22,9 @@ export default async function addFriend(
 					Accept: "application/json",
 				},
 			}
-		);
+		)
+
+		console.log("request one", data, status)
 
 		if (status == 200) {
 			const response = await axios.post(
@@ -41,11 +46,11 @@ export default async function addFriend(
 						onBehalfOf: req.body.userId,
 					},
 				}
-			);
-			if (response.status == 200)
-				return res.status(200).json({ message: "OK" });
+			)
+			if (response.status == 200) return res.status(200).json({ message: "OK" })
 		}
 	} catch (error: any) {
-		return res.status(error.statusCode || 500).json({ error: error.message });
+		console.log("error", error.message)
+		return res.status(error.statusCode || 500).json({ error: error.message })
 	}
 }
