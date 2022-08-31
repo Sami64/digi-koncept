@@ -171,13 +171,13 @@ export const getServerSideProps: GetServerSideProps = async () => {
 	const locations: JobLocation[] = await retrieveJobLocations()
 	const kreators: Kreator[] = await retrieveKreators()
 	locations.forEach((location) => {
-		let k = kreators.find((kreator) => kreator.id === location.id)
-		if (k != null) {
+		let k = kreators.filter((kreator) => kreator.id === location.id)
+		k.forEach((creator) => {
 			jobLocations.push({
 				...location,
-				kreator: k,
+				kreator: creator,
 			})
-		}
+		})
 	})
 
 	return {
