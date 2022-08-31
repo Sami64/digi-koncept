@@ -161,18 +161,25 @@ const MapHome: NextPage = ({
 export default MapHome
 
 export const getServerSideProps: GetServerSideProps = async () => {
+	let jobLocations: {
+		id: string
+		lat: number
+		lng: number
+		kreator: Kreator
+	}[] = []
+
 	const locations: JobLocation[] = await retrieveJobLocations()
 	const kreators: Kreator[] = await retrieveKreators()
-	const jobLocations = locations.map((location) =>
-		kreators.map((kreator) => {
-			if (kreator.id === location.id) {
-				return {
-					...location,
-					kreator,
-				}
-			}
-		})
-	)
+	locations.forEach((location) => {
+		let k = kreators.find((kreator) => kreator.id === location.id)
+		if (k != null) {
+			jobLocations.push({
+				...location,
+				kreator: k,
+			})
+		}
+	})
+
 	return {
 		props: { jobLocations },
 	}
