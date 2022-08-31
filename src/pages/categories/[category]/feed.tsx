@@ -1,35 +1,35 @@
-import { NextPage } from "next";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import Banner from "../../../components/Banner";
-import Header from "../../../components/Header";
-import JobCard from "../../../components/job/JobCard";
-import { Job } from "../../../core/job/types";
-import { retrieveJobs } from "../../../modules/jobs/retrieve";
+import { NextPage } from "next"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
+import Banner from "../../../components/Banner"
+import Header from "../../../components/Header"
+import JobCard from "../../../components/job/JobCard"
+import { Job } from "../../../core/job/types"
+import { retrieveJobs } from "../../../modules/jobs/retrieve"
 
 const Feed: NextPage = () => {
-	const router = useRouter();
-	const { data: session, status } = useSession();
-	const { category } = router.query;
-	const [jobs, setJobs] = useState<Job[]>([]);
+	const router = useRouter()
+	const { data: session, status } = useSession()
+	const { category } = router.query
+	const [jobs, setJobs] = useState<Job[]>([])
 
 	if (status == "loading") {
-		return <div>Loading</div>;
+		return <div>Loading</div>
 	}
 
 	if (session?.user == null) {
-		router.replace("/auth/authenticate");
+		router.replace("/auth/authenticate")
 	}
 
 	useEffect(() => {
-		getJobs();
-	}, []);
+		getJobs()
+	}, [])
 
 	const getJobs = async () => {
-		const docs = await retrieveJobs(category as string);
-		setJobs(docs);
-	};
+		const docs = await retrieveJobs(category as string)
+		setJobs(docs)
+	}
 
 	return (
 		<div className="bg-digi_background">
@@ -41,8 +41,10 @@ const Feed: NextPage = () => {
 						<JobCard
 							key={job.id}
 							title={job.title}
+							kreatorName={job.kreator.name}
 							id={job.id}
 							category={job.category}
+							images={job.jobImages}
 						/>
 					))
 				) : (
@@ -50,10 +52,10 @@ const Feed: NextPage = () => {
 				)}
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default Feed;
+export default Feed
 
 // export const getServerSideProps: GetServerSideProps = async (
 // 	context: GetServerSidePropsContext

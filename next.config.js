@@ -2,7 +2,11 @@
 module.exports = {
 	reactStrictMode: true,
 	images: {
-		domains: ["links.papareact.com", "images.unsplash.com"],
+		domains: [
+			"links.papareact.com",
+			"images.unsplash.com",
+			"res.cloudinary.com",
+		],
 	},
 	env: {
 		NEXT_PUBLIC_VERCEL_MAPBOX_GL_ACCESS_TOKEN:
@@ -12,4 +16,4 @@ module.exports = {
 		NEXT_PUBLIC_VERCEL_CHATENGINE_KEY:
 			process.env.NEXT_PUBLIC_VERCEL_CHATENGINE_KEY,
 	},
-};
+}

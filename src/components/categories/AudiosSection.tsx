@@ -1,5 +1,4 @@
-import AudioPlayer from "react-h5-audio-player"
-import "react-h5-audio-player/lib/styles.css"
+import ReactPlayer from "react-player/lazy"
 
 interface Props {
 	jobId: string
@@ -11,9 +10,18 @@ const AudiosSection: React.FC<Props> = ({ jobId, audios }) => {
 	return (
 		<div className="grid gap-4 grid-cols-3 auto-rows-auto">
 			{audios?.map((audio, index) => (
-				<>
-					<AudioPlayer src={audio} key={index} volume={0.5} />
-				</>
+				<div
+					className="flex flex-col border-2 items-center justify-center p-2 rounded-xl"
+					key={index}
+				>
+					<ReactPlayer
+						url={audio ?? ""}
+						controls
+						light
+						width={400}
+						height={50}
+					/>
+				</div>
 			))}
 		</div>
 	)
