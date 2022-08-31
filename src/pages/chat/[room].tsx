@@ -57,7 +57,7 @@ const ChatRoom: NextPage = () => {
 					{roomDetails.kreator.name}
 				</h1>
 			</div>
-			<div className="mx-auto relative flex flex-col justify-between bg-white rounded-lg p-5 w-3/6 my-5 h-5/6">
+			<div className="mx-auto relative flex flex-col justify-between bg-white rounded-lg p-5 w-full md:w-3/6 my-5 h-5/6">
 				{/** Message area */}
 				<div className="relative flex flex-col w-full overflow-y-auto">
 					{roomMessages.map((message) => (
