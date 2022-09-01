@@ -1,18 +1,16 @@
-import { NextPage } from "next"
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from "next"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
 import Banner from "../../../components/Banner"
 import Header from "../../../components/Header"
 import JobCard from "../../../components/job/JobCard"
-import { Job } from "../../../core/job/types"
 import { retrieveJobs } from "../../../modules/jobs/retrieve"
 
-const Feed: NextPage = () => {
+const Feed: NextPage = ({
+	jobs,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 	const router = useRouter()
 	const { data: session, status } = useSession()
-	const { category } = router.query
-	const [jobs, setJobs] = useState<Job[]>([])
 
 	if (status == "loading") {
 		return <div>Loading</div>
@@ -20,15 +18,6 @@ const Feed: NextPage = () => {
 
 	if (session?.user == null) {
 		router.replace("/auth/authenticate")
-	}
-
-	useEffect(() => {
-		getJobs()
-	}, [])
-
-	const getJobs = async () => {
-		const docs = await retrieveJobs(category as string)
-		setJobs(docs)
 	}
 
 	return (
@@ -57,11 +46,12 @@ const Feed: NextPage = () => {
 
 export default Feed
 
-// export const getServerSideProps: GetServerSideProps = async (
-// 	context: GetServerSidePropsContext
-// ) => {
+export const getServerSideProps: GetServerSideProps = async ({
+	params,
+	query,
+}) => {
+	const { category } = query
+	const jobs = await retrieveJobs(category as string)
 
-// 	return {
-// 		props: { session },
-// 	};
-// };
+	return { props: { jobs } }
+}

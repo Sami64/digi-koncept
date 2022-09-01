@@ -1,16 +1,14 @@
-import React from "react";
-import Avatar from "@mui/material/Avatar";
-import type { NextPage } from "next";
-import Image from "next/image";
-import { useRouter } from "next/router";
+import Image from "next/image"
+import { useRouter } from "next/router"
+import React from "react"
 
 type Props = {
-	categoryId: string;
-	title: string;
-};
+	categoryId: string
+	title: string
+}
 
 const CategoryCard: React.FC<Props> = ({ categoryId, title }) => {
-	const router = useRouter();
+	const router = useRouter()
 	return (
 		<div className="relative flex flex-col m-5 bg-white p-10 drop-shadow-xl items-center justify-center">
 			<Image
@@ -27,10 +25,10 @@ const CategoryCard: React.FC<Props> = ({ categoryId, title }) => {
 				onClick={() => router.push(`/categories/${categoryId}/feed`)}
 				className="mt-auto border-2 border-gray-200 rounded-full px-3 py-2 text-gray-400 text-lg hover:bg-digi_primary hover:text-white"
 			>
-				32 Creatives
+				view
 			</button>
 		</div>
-	);
-};
+	)
+}
 
-export default CategoryCard;
+export default CategoryCard

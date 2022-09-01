@@ -3,18 +3,17 @@ import ChatIcon from "@mui/icons-material/Chat"
 import EmailIcon from "@mui/icons-material/Email"
 import PhoneIcon from "@mui/icons-material/Phone"
 import { Modal, Spin, Tabs } from "antd"
-import { NextPage } from "next"
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from "next"
 import { useSession } from "next-auth/react"
 import Head from "next/head"
 import { useRouter } from "next/router"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import Banner from "../../../components/Banner"
 import AudiosSection from "../../../components/categories/AudiosSection"
 import ImagesSection from "../../../components/categories/ImagesSection"
 import VideosSection from "../../../components/categories/VideosSection"
 import Header from "../../../components/Header"
 import { handleValidation } from "../../../core/categories/helpers/handleValidation"
-import { Job } from "../../../core/job/types"
 import { createChatRoom } from "../../../modules/chat/create"
 import { retrieveRoom } from "../../../modules/chat/retrieve"
 import { retrieveJob } from "../../../modules/jobs/retrieve"
@@ -150,23 +149,13 @@ const EmailModal: React.FC = () => {
 	)
 }
 
-const DetailsPage: NextPage = () => {
-	const [job, setJob] = useState<Job>()
+const DetailsPage: NextPage = ({
+	job,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 	const [showPhoneNumber, setShowPhoneNumber] = useState(false)
 	const [showEmailModal, setShowEmailModal] = useState(false)
 	const { data: session, status } = useSession()
 	const router = useRouter()
-
-	const { details } = router.query
-
-	useEffect(() => {
-		getJob()
-	}, [])
-
-	const getJob = async () => {
-		const doc = await retrieveJob(details as string)
-		setJob(doc)
-	}
 
 	const handleStartChat = async () => {
 		let roomId = ""
@@ -263,40 +252,19 @@ const DetailsPage: NextPage = () => {
 							<TabPane key={0} tab={<span>Videos</span>}>
 								{job != null && (
 									<VideosSection
-										jobId={details as string}
+										jobId={job?.id as string}
 										videos={job.videos}
 									/>
 								)}
 							</TabPane>
 							<TabPane key={1} tab={<span>Images</span>}>
-								<ImagesSection jobId={details as string} images={job?.images} />
+								<ImagesSection jobId={job?.id as string} images={job?.images} />
 							</TabPane>
 							<TabPane key={2} tab={<span>Audio</span>}>
-								<AudiosSection jobId={details as string} audios={job?.audios} />
+								<AudiosSection jobId={job?.id as string} audios={job?.audios} />
 							</TabPane>
 						</Tabs>
 					</div>
-					{/* <div className="my-5">
-						<h5 className="text-4xl font-bold capitalize">creator perks</h5>
-						<ul>
-							<li className="flex text-xl items-center text-digi_primary font-bold capitalize my-4">
-								<ArrowCircleRightIcon className="h-6 mr-2 " />
-								<span>perk uno</span>
-							</li>
-							<li className="flex text-xl items-center text-digi_primary font-bold capitalize my-4">
-								<ArrowCircleRightIcon className="h-6 mr-2 " />
-								<span>perk uno</span>
-							</li>
-							<li className="flex text-xl items-center text-digi_primary font-bold capitalize my-4">
-								<ArrowCircleRightIcon className="h-6 mr-2 " />
-								<span>perk uno</span>
-							</li>
-							<li className="flex text-xl items-center text-digi_primary font-bold capitalize my-4">
-								<ArrowCircleRightIcon className="h-6 mr-2 " />
-								<span>perk uno</span>
-							</li>
-						</ul>
-					</div> */}
 				</div>
 			</div>
 		</div>
@@ -304,3 +272,11 @@ const DetailsPage: NextPage = () => {
 }
 
 export default DetailsPage
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+	const { details } = query
+	console.log("query details", details)
+	const job = await retrieveJob(details as string)
+	console.log("job", job)
+	return { props: { job } }
+}

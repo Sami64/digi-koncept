@@ -5,17 +5,17 @@ import {
 	getDocs,
 	query,
 	where,
-} from "firebase/firestore";
-import { db } from "../../../firebase";
-import { Job, JobLocation } from "../../core/job/types";
+} from "firebase/firestore"
+import { db } from "../../../firebase"
+import { Job, JobLocation } from "../../core/job/types"
 
-const jobsCollection = collection(db, "jobs");
+const jobsCollection = collection(db, "jobs")
 
 export const retrieveJobs = async (id: string) => {
-	let jobs: Job[] = [];
-	const jobsQuery = query(jobsCollection, where("category.id", "==", id));
+	let jobs: Job[] = []
+	const jobsQuery = query(jobsCollection, where("category.id", "==", id))
 
-	const jobSnapshot = await getDocs(jobsQuery);
+	const jobSnapshot = await getDocs(jobsQuery)
 	jobSnapshot.forEach((job) => {
 		jobs.push({
 			id: job.id,
@@ -27,27 +27,44 @@ export const retrieveJobs = async (id: string) => {
 			audios: job.data()["audios"],
 			images: job.data()["images"],
 			jobImages: job.data()["jobImages"],
-		});
-	});
+		})
+	})
 
-	return jobs;
-};
+	return jobs
+}
 
 export const retrieveJobLocations = async () => {
-	const locations: JobLocation[] = [];
-	const jobsLocationSnapshot = await getDocs(collection(db, "locations"));
+	const locations: JobLocation[] = []
+	const jobsLocationSnapshot = await getDocs(collection(db, "locations"))
 
 	jobsLocationSnapshot.docs.forEach((doc) =>
 		locations.push({ id: doc.id, lat: doc.data().lat, lng: doc.data().lng })
-	);
+	)
 
-	return locations;
-};
+	return locations
+}
 
-export const retrieveJob = async (jobId: string) => {
-	let job: Job;
-	const docRef = doc(jobsCollection, jobId);
-	const snapshot = await getDoc(docRef);
+export const retrieveJob = async (jobId: string): Promise<Job> => {
+	let job: Job = {
+		id: "",
+		title: "",
+		description: "",
+		category: { id: "", title: "" },
+		kreator: {
+			id: "",
+			name: "",
+			phone: "",
+			category: { id: "", title: "" },
+			email: "",
+			location: { latitude: 0, longitude: 0 },
+		},
+		videos: [],
+		audios: [],
+		images: [],
+		jobImages: [],
+	}
+	const docRef = doc(jobsCollection, jobId)
+	const snapshot = await getDoc(docRef)
 
 	if (snapshot.exists()) {
 		job = {
@@ -60,8 +77,9 @@ export const retrieveJob = async (jobId: string) => {
 			audios: snapshot.data()["audios"],
 			images: snapshot.data()["images"],
 			jobImages: snapshot.data()["jobImages"],
-		};
+		}
 
-		return job;
+		return job
 	}
-};
+	return job
+}

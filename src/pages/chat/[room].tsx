@@ -1,4 +1,4 @@
-import { NextPage } from "next"
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from "next"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
@@ -11,7 +11,10 @@ import {
 } from "../../modules/chat/retrieve"
 import { retrieveKreator } from "../../modules/users/retrieve"
 
-const ChatRoom: NextPage = () => {
+const ChatRoom: NextPage = ({
+	room,
+	kreator,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 	const router = useRouter()
 	const [roomMessages, setRoomMessages] = useState<ChatMessage[]>([])
 	const { data: session, status } = useSession()
@@ -25,21 +28,21 @@ const ChatRoom: NextPage = () => {
 			category: { id: "", title: "" },
 		},
 	})
-	const { room } = router.query
+	// const { room } = router.query
 
-	const getRoomInfo = async () => {
-		let kreator: Kreator
-		const roomInfo = await retrieveRoomById(room as string)
-		console.log("room info obj", roomInfo)
-		if (roomInfo != null) {
-			kreator = await retrieveKreator(roomInfo?.kreatorId as string)
-			setRoomDetails({ kreator })
-		}
-	}
+	// const getRoomInfo = async () => {
+	// 	let kreator: Kreator
+	// 	const roomInfo = await retrieveRoomById(room as string)
+	// 	console.log("room info obj", roomInfo)
+	// 	if (roomInfo != null) {
+	// 		kreator = await retrieveKreator(roomInfo?.kreatorId as string)
+	// 		setRoomDetails({ kreator })
+	// 	}
+	// }
 
 	useEffect(() => {
 		if (room != null) {
-			getRoomInfo()
+			setRoomDetails({ kreator })
 		}
 		retrieveChatRoomMessages(room as string, setRoomMessages)
 	}, [])
@@ -91,3 +94,25 @@ const ChatRoom: NextPage = () => {
 }
 
 export default ChatRoom
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+	const { room } = query
+	let kreator: Kreator = {
+		id: "",
+		name: "",
+		email: "",
+		phone: "",
+		category: { id: "", title: "" },
+		location: { longitude: 0, latitude: 0 },
+	}
+	console.log("room", room)
+	if (room != null) {
+		const roomInfo = await retrieveRoomById(room as string)
+		console.log("room info", roomInfo)
+		if (roomInfo != null) {
+			kreator = await retrieveKreator(roomInfo?.kreatorId as string)
+		}
+	}
+	console.log("room kreator", kreator)
+	return { props: { room, kreator } }
+}
