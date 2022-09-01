@@ -33,6 +33,28 @@ export const retrieveJobs = async (id: string) => {
 	return jobs
 }
 
+export const retrieveKreatorJobs = async (id: string) => {
+	let jobs: Job[] = []
+	const jobsQuery = query(jobsCollection, where("kreator.id", "==", id))
+
+	const jobSnapshot = await getDocs(jobsQuery)
+	jobSnapshot.forEach((job) => {
+		jobs.push({
+			id: job.id,
+			title: job.data()["title"],
+			kreator: job.data()["kreator"],
+			description: job.data()["description"],
+			category: job.data()["category"],
+			videos: job.data()["videos"],
+			audios: job.data()["audios"],
+			images: job.data()["images"],
+			jobImages: job.data()["jobImages"],
+		})
+	})
+
+	return jobs
+}
+
 export const retrieveJobLocations = async () => {
 	const locations: JobLocation[] = []
 	const jobsLocationSnapshot = await getDocs(collection(db, "locations"))

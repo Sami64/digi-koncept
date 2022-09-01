@@ -5,6 +5,7 @@ module.exports = {
 		domains: [
 			"links.papareact.com",
 			"images.unsplash.com",
+			"unsplash.com",
 			"res.cloudinary.com",
 		],
 	},

@@ -10,7 +10,7 @@ type Props = {
 const CategoryCard: React.FC<Props> = ({ categoryId, title }) => {
 	const router = useRouter()
 	return (
-		<div className="relative flex flex-col m-5 bg-white p-10 drop-shadow-xl items-center justify-center">
+		<div className="relative flex flex-col m-5 bg-white p-10 drop-shadow-xl items-center justify-center rounded-xl">
 			<Image
 				src="/icons/coding.png"
 				width={150}
@@ -25,7 +25,7 @@ const CategoryCard: React.FC<Props> = ({ categoryId, title }) => {
 				onClick={() => router.push(`/categories/${categoryId}/feed`)}
 				className="mt-auto border-2 border-gray-200 rounded-full px-3 py-2 text-gray-400 text-lg hover:bg-digi_primary hover:text-white"
 			>
-				view
+				View
 			</button>
 		</div>
 	)

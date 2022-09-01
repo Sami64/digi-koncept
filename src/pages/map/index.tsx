@@ -109,7 +109,9 @@ const MapHome: NextPage = ({
 				onLoad={onMapLoad}
 				mapStyle="mapbox://styles/mapbox/streets-v11"
 				style={{ width: "100vw", height: "100vh" }}
-				mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_GL_ACCESS_TOKEN}
+				mapboxAccessToken={
+					"pk.eyJ1Ijoic21hc2hicm9zNTQiLCJhIjoiY2w1anM0ZnI1MDMyaDNqbzRqYmV5cmk4ZSJ9.lsXunh4hppfw6EwrJ5UICA"
+				}
 			>
 				<GeolocateControl showUserHeading={true} />
 
@@ -132,7 +134,7 @@ const MapHome: NextPage = ({
 						<div className="relative backdrop-opacity-10 bg-black/70 rounded-xl shadow-2xl w-full p-4">
 							<h1 className="text-lg flex items-center text-white font-bold my-2">
 								<BriefcaseIcon className="h-5 mr-2 flex-none" />
-								<span className="line-clamp-1 flex-1">
+								<span className="line-clamp-1 flex-1 capitalize">
 									{popupInfo.kreator.category.title}
 								</span>
 							</h1>

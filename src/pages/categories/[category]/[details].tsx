@@ -215,7 +215,7 @@ const DetailsPage: NextPage = ({
 								onOk={() => setShowPhoneNumber(false)}
 								onCancel={() => setShowPhoneNumber(false)}
 							>
-								<p>+233501083601</p>
+								<p>{job?.kreator.phone}</p>
 							</Modal>
 
 							<button
