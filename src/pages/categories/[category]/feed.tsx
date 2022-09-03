@@ -13,7 +13,7 @@ const Feed: NextPage = ({
 	const { data: session, status } = useSession()
 
 	if (status == "loading") {
-		return <div>Loading</div>
+		return <div>Loading Info</div>
 	}
 
 	if (session?.user == null) {
