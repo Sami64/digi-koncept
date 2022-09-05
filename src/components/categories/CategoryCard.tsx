@@ -12,7 +12,7 @@ const CategoryCard: React.FC<Props> = ({ categoryId, title }) => {
 	return (
 		<div className="relative flex flex-col m-5 bg-white p-10 drop-shadow-xl items-center justify-center rounded-xl">
 			<Image
-				src="/icons/coding.png"
+				src={`/icons/${title}.png`}
 				width={150}
 				height={48}
 				objectFit="contain"
