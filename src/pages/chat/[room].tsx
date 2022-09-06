@@ -28,17 +28,6 @@ const ChatRoom: NextPage = ({
 			category: { id: "", title: "" },
 		},
 	})
-	// const { room } = router.query
-
-	// const getRoomInfo = async () => {
-	// 	let kreator: Kreator
-	// 	const roomInfo = await retrieveRoomById(room as string)
-	// 	console.log("room info obj", roomInfo)
-	// 	if (roomInfo != null) {
-	// 		kreator = await retrieveKreator(roomInfo?.kreatorId as string)
-	// 		setRoomDetails({ kreator })
-	// 	}
-	// }
 
 	useEffect(() => {
 		if (room != null) {
@@ -52,7 +41,7 @@ const ChatRoom: NextPage = ({
 			<div
 				className="absolute top-0 w-full h-full bg-slate-800 bg-no-repeat bg-full"
 				style={{
-					backgroundImage: "url('/img/register_bg_2.png')",
+					backgroundImage: "url('/img/orange_back.png')",
 				}}
 			></div>
 			<div className="flex relative w-3/6 mx-auto">
