@@ -7,7 +7,7 @@
 		"test": "jest"
 	},
 	"dependencies": {
-		"@cometchat-pro/chat": "3.0.6",
+		"@cometchat-pro/chat": "3.0.10",
 		"@emotion/core": "^10.0.35",
 		"@emotion/react": "^11.9.3",
 		"@emotion/styled": "^11.9.3",
