@@ -7,8 +7,8 @@
 import { CometChat } from "@cometchat-pro/chat"
 import { getSession } from "next-auth/react"
 import { Component } from "react"
-import { CometChatUI } from "../cometchat-pro-react-ui-kit/CometChatWorkspace/src/components/index"
-import constants from "../core/utils/comet_constants"
+import { CometChatUI } from "./cometchat-pro-react-ui-kit/CometChatWorkspace/src/components/index"
+import constants from "./core/utils/comet_constants"
 
 // const CometChatNoSSR = () => {
 // 	const { data: session, status } = useSession()
