@@ -13,8 +13,7 @@ const CometChatNoSSR = dynamic(() => import("../CometChatNoSSR"), {
 
 const Chat = () => {
 	useEffect(() => {
-		if (typeof window != undefined)
-			window.CometChat = require("@cometchat-pro/chat").CometChat
+		window.CometChat = require("@cometchat-pro/chat").CometChat
 	})
 
 	return (
