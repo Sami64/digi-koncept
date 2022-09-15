@@ -7,7 +7,7 @@ declare global {
 	}
 }
 
-const CometChatNoSSR = dynamic(() => import("../CometChatNoSSR"), {
+const CometChatNoSSR = dynamic(() => import("../../CometChatNoSSR"), {
 	ssr: false,
 })
 
