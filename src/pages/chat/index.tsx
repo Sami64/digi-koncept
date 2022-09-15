@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic"
 import { useEffect } from "react"
-
+// rev
 declare global {
 	interface Window {
 		CometChat?: any
