@@ -1,12 +1,12 @@
-import { LogoutIcon } from "@heroicons/react/outline";
-import type { NextPage } from "next";
-import { signOut, useSession } from "next-auth/react";
-import Image from "next/image";
-import { useRouter } from "next/router";
+import { LogoutIcon } from "@heroicons/react/outline"
+import type { NextPage } from "next"
+import { signOut, useSession } from "next-auth/react"
+import Image from "next/image"
+import { useRouter } from "next/router"
 
 const Header: NextPage = () => {
-	const router = useRouter();
-	const session = useSession();
+	const router = useRouter()
+	const session = useSession()
 
 	return (
 		<header>
@@ -14,7 +14,7 @@ const Header: NextPage = () => {
 				<div className="mt-2 flex items-center flex-grow sm:flex-grow-0">
 					<Image
 						onClick={() => router.push("/")}
-						src="https://links.papareact.com/f90"
+						src="/img/logo.png"
 						width={150}
 						height={40}
 						objectFit="contain"
@@ -34,7 +34,7 @@ const Header: NextPage = () => {
 				</div>
 			</div>
 		</header>
-	);
-};
+	)
+}
 
-export default Header;
+export default Header
