@@ -3,6 +3,7 @@ import ChatIcon from "@mui/icons-material/Chat"
 import EmailIcon from "@mui/icons-material/Email"
 import PhoneIcon from "@mui/icons-material/Phone"
 import { Modal, Spin, Tabs } from "antd"
+import axios from "axios"
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from "next"
 import { useSession } from "next-auth/react"
 import Head from "next/head"
@@ -157,6 +158,17 @@ const DetailsPage: NextPage = ({
 	const { data: session, status } = useSession()
 	const router = useRouter()
 
+	const cometChatStart = async () => {
+		const { status } = await axios.post("/api/comet/friends/add", {
+			uid: job?.kreator?.id.toLowerCase(),
+			userId: session?.userId,
+			kreatorName: job?.kreator?.name,
+			kreatorJob: job?.title,
+		})
+		if (status == 200) router.push("/chat")
+		else alert("Error occured")
+	}
+
 	const handleStartChat = async () => {
 		let roomId = ""
 		const roomExists = await retrieveRoom(
@@ -219,7 +231,7 @@ const DetailsPage: NextPage = ({
 							</Modal>
 
 							<button
-								onClick={handleStartChat}
+								onClick={cometChatStart}
 								className="inline-flex bg-digi_primary items-center border text-white px-2 py-2 rounded-lg text-lg font-bold hover:shadow-xl hover:bg-white hover:text-digi_primary hover:border-digi_primary my-1"
 							>
 								<ChatIcon className="h-5 mr-1" />
