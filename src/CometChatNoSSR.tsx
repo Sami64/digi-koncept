@@ -25,12 +25,14 @@ export default class CometChatNoSSR extends Component<MyProps, MyState> {
 		CometChat.init(constants.APP_ID, appSetting).then(
 			() => {
 				getSession().then((session) => {
+					console.log("user comet", session)
 					CometChat.login(session?.userId, constants.AUTH_KEY).then(
-						(user) => {
+						(user: CometChat.User) => {
+							console.log("Comet login successfull", { user })
 							this.setState({ user })
 						},
-						(error) => {
-							console.log("login failed wit exception:", { error })
+						(error: CometChat.CometChatException) => {
+							console.log("login failed with exception:", { error })
 						}
 					)
 				})
