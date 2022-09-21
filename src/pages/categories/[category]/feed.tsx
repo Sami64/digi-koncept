@@ -1,9 +1,11 @@
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from "next"
 import { useSession } from "next-auth/react"
+import Head from "next/head"
 import { useRouter } from "next/router"
 import Banner from "../../../components/Banner"
 import Header from "../../../components/Header"
 import JobCard from "../../../components/job/JobCard"
+import { Job } from "../../../core/job/types"
 import { retrieveJobs } from "../../../modules/jobs/retrieve"
 
 const Feed: NextPage = ({
@@ -22,6 +24,9 @@ const Feed: NextPage = ({
 
 	return (
 		<div className="bg-digi_background">
+			<Head>
+				<title>category - {jobs[0].category.title}</title>
+			</Head>
 			<Header />
 			<Banner />
 			<div className="max-w-screen-lg mx-auto py-5">
@@ -51,7 +56,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 	query,
 }) => {
 	const { category } = query
-	const jobs = await retrieveJobs(category as string)
+	const jobs: Job[] = await retrieveJobs(category as string)
 
 	return { props: { jobs } }
 }
