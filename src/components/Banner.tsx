@@ -3,15 +3,13 @@ import { useRouter } from "next/router"
 import React from "react"
 
 const Banner: React.FC = () => {
+	const data = ["img/paint.jpg"]
 	const router = useRouter()
 
 	return (
 		<div className="relative h-[400px] sm:h-[500px] lg:h-[600px] xl:h-[700px] 2xl:h-[800px]">
-			<Image
-				src="https://images.unsplash.com/photo-1550418290-a8d86ad674a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-				layout="fill"
-				objectFit="cover"
-			/>
+			<Image src="/img/paint.jpg" layout="fill" objectFit="cover" />
+
 			<div className="absolute text-center w-full h-full backdrop-opacity-10 bg-black/30 flex flex-col items-center justify-center">
 				<h1 className="text-6xl uppercase font-extrabold text-white text-center">
 					find your kreators

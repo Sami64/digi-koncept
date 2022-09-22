@@ -47,7 +47,32 @@ const MapHome: NextPage = ({
 							setPopupInfo(location)
 						}}
 					>
-						<p className="cursor-pointer text-6xl animate-bounce">🕴 </p>
+						<p className="cursor-pointer text-6xl animate-bounce">
+							{" "}
+							{location.kreator.category.title === "music"
+								? "🎶"
+								: location.kreator.category.title === "photography"
+								? "📷"
+								: location.kreator.category.title === "logo design"
+								? "💠"
+								: location.kreator.category.title === "song writing"
+								? "✍"
+								: location.kreator.category.title === "voice-over"
+								? "🎙"
+								: location.kreator.category.title === "animation"
+								? "🎞"
+								: location.kreator.category.title === "audio editing"
+								? "🎧"
+								: location.kreator.category.title === "3d modelling"
+								? "📐"
+								: location.kreator.category.title === "beat making"
+								? "🎹"
+								: location.kreator.category.title === "graphic design"
+								? "🎨"
+								: location.kreator.category.title === "sculpting"
+								? "🗿"
+								: "🎨"}{" "}
+						</p>
 					</Marker>
 				)
 			),
