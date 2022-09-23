@@ -14,6 +14,7 @@ export const retrieveKreators = async () => {
 			name: doc.data().name,
 			phone: doc.data().phone,
 			email: doc.data().email,
+			image: doc.data().image,
 			category: doc.data().category,
 			location: doc.data().location,
 		})
@@ -27,6 +28,7 @@ export const retrieveKreator = async (id: string): Promise<Kreator> => {
 		id: "",
 		name: "",
 		email: "",
+		image: "",
 		phone: "",
 		location: { longitude: 0, latitude: 0 },
 		category: { id: "", title: "" },
@@ -40,6 +42,7 @@ export const retrieveKreator = async (id: string): Promise<Kreator> => {
 			id: snapshot.id,
 			name: snapshot.data()["name"],
 			email: snapshot.data()["email"],
+			image: snapshot.data()["image"],
 			phone: snapshot.data()["phone"],
 			location: snapshot.data()["location"],
 			category: snapshot.data()["category"],

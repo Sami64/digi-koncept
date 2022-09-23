@@ -1,4 +1,3 @@
-import { LocationMarkerIcon } from "@heroicons/react/solid"
 import ChatIcon from "@mui/icons-material/Chat"
 import EmailIcon from "@mui/icons-material/Email"
 import PhoneIcon from "@mui/icons-material/Phone"
@@ -190,13 +189,13 @@ const DetailsPage: NextPage = ({
 	return (
 		<div className="bg-digi_background">
 			<Head>
-				<title>Job Details</title>
+				<title className="capitalize">{job?.title.toUpperCase()}</title>
 			</Head>
 			<Header />
 			<Banner />
 
 			<div className="max-w-screen-lg mx-auto absolute top-3/4 left-0 right-0 ">
-				<div className="flex flex-col  bg-white my-5 p-8 rounded-xl shadow-2xl">
+				<div className="flex flex-col  bg-white my-32 p-8 rounded-xl shadow-2xl">
 					{/**Top Portion */}
 					<div className="flex grow flex-row justify-between">
 						{/** Left Div */}
@@ -206,10 +205,6 @@ const DetailsPage: NextPage = ({
 							</h5>
 							<h5 className="text-lg text-digi_primary tracking-wide font-bold uppercase my-2">
 								{job?.kreator.name}
-							</h5>
-							<h5 className="text-xl flex text-center tracking-wide items-center capitalize font-extralight">
-								<LocationMarkerIcon className="h-5" />{" "}
-								<span>{job?.kreator.name}</span>
 							</h5>
 						</div>
 						{/** Right Div */}

@@ -75,6 +75,7 @@ export const retrieveJob = async (jobId: string): Promise<Job> => {
 		kreator: {
 			id: "",
 			name: "",
+			image: "",
 			phone: "",
 			category: { id: "", title: "" },
 			email: "",

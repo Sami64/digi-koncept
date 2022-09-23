@@ -24,7 +24,7 @@ const KreatorInfo: NextPage = ({
 						{/** Profile Image */}
 						<div className="h-48 w-52 mb-3 md:mb-0 relative rounded-full border-2 border-digi_primary mx-auto">
 							<Image
-								src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+								src={kreator.image}
 								layout="fill"
 								objectFit="cover"
 								className="rounded-full h-48 w-52"

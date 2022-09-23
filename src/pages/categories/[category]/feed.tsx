@@ -25,7 +25,7 @@ const Feed: NextPage = ({
 	return (
 		<div className="bg-digi_background">
 			<Head>
-				<title>category - {jobs[0].category.title}</title>
+				<title>category - {jobs[0].category.title.toUpperCase()}</title>
 			</Head>
 			<Header />
 			<Banner />

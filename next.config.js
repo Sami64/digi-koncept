@@ -8,6 +8,7 @@ module.exports = {
 			"images.unsplash.com",
 			"unsplash.com",
 			"res.cloudinary.com",
+			"lh3.googleusercontent.com",
 		],
 	},
 	webpack: (config, options) => {
