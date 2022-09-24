@@ -25,7 +25,9 @@ const Feed: NextPage = ({
 	return (
 		<div className="bg-digi_background">
 			<Head>
-				<title>category - {jobs[0].category.title.toUpperCase()}</title>
+				<title>
+					category - {jobs.length > 0 && jobs[0].category.title.toUpperCase()}
+				</title>
 			</Head>
 			<Header />
 			<Banner />
@@ -42,7 +44,9 @@ const Feed: NextPage = ({
 						/>
 					))
 				) : (
-					<h3>No Jobs Here</h3>
+					<h3 className="text-4xl font-bold py-6 text-center capitalize">
+						😢 no jobs posted yet
+					</h3>
 				)}
 			</div>
 		</div>
