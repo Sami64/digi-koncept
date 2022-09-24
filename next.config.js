@@ -1,5 +1,11 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+const withPWA = require("next-pwa")({ dest: "public" })
+module.exports = withPWA({
+	pwa: {
+		dest: "public",
+		register: true,
+		skipWaiting: true,
+	},
 	reactStrictMode: true,
 	images: {
 		disableStaticImages: true,
@@ -40,4 +46,4 @@ module.exports = {
 		NEXT_PUBLIC_VERCEL_CHATENGINE_KEY:
 			process.env.NEXT_PUBLIC_VERCEL_CHATENGINE_KEY,
 	},
-}
+})
