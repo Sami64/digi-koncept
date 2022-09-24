@@ -23,6 +23,7 @@ const ChatRoom: NextPage = ({
 			id: "",
 			name: "",
 			email: "",
+			image: "",
 			phone: "",
 			location: { longitude: 0, latitude: 0 },
 			category: { id: "", title: "" },
@@ -89,6 +90,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 	let kreator: Kreator = {
 		id: "",
 		name: "",
+		image: "",
 		email: "",
 		phone: "",
 		category: { id: "", title: "" },
