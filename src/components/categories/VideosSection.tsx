@@ -12,7 +12,7 @@ const VideosSection: React.FC<Props> = ({ jobId, videos }) => {
 	}, [])
 
 	return (
-		<div className="grid gap-4 grid-cols-3 auto-rows-auto">
+		<div className="grid gap-6 grid-cols-2 md:gap-4 md:grid-cols-3 auto-rows-auto">
 			{videos?.map((video) => (
 				<ReactPlayer
 					url={videos ? videos[0] : ""}

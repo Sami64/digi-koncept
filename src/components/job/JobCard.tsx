@@ -40,7 +40,7 @@ const JobCard: React.FC<Props> = ({
 			<div className="flex flex-col items-center justify-center">
 				<button
 					onClick={() => router.push(`/categories/${category.id}/${id}`)}
-					className="inline-flex bg-digi_primary items-center border text-white px-10 py-2 rounded-lg text-lg font-bold hover:shadow-xl hover:bg-white hover:text-digi_primary hover:border-digi_primary my-1"
+					className="inline-flex w-full justify-center bg-digi_primary items-center border text-white px-10 py-2 rounded-lg text-lg font-bold hover:shadow-xl hover:bg-white hover:text-digi_primary hover:border-digi_primary my-1"
 				>
 					<EyeIcon className="h-5 mr-1" />
 					<span>View</span>

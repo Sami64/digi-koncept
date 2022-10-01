@@ -31,7 +31,7 @@ const Feed: NextPage = ({
 			</Head>
 			<Header />
 			<Banner />
-			<div className="max-w-screen-lg mx-auto py-5">
+			<div className="max-w-screen-lg mx-16 md:mx-16 lg:mx-auto py-5">
 				{jobs.length > 0 ? (
 					jobs.map((job) => (
 						<JobCard

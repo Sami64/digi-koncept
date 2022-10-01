@@ -23,7 +23,7 @@ const CategoryCard: React.FC<Props> = ({ categoryId, title }) => {
 			</h4>
 			<button
 				onClick={() => router.push(`/categories/${categoryId}/feed`)}
-				className="mt-auto border-2 border-gray-200 rounded-full px-3 py-2 text-gray-400 text-lg hover:bg-digi_primary hover:text-white"
+				className="mt-auto border-2 border-gray-200 rounded-full px-3 py-2 w-full text-gray-400 text-lg hover:bg-digi_primary hover:text-white"
 			>
 				View
 			</button>
