@@ -20,7 +20,10 @@ import { retrieveJob } from "../../../modules/jobs/retrieve"
 
 const { TabPane } = Tabs
 
-const EmailModal: React.FC = () => {
+const EmailModal: React.FC<{ kreatorEmail: string; userName: string }> = ({
+	kreatorEmail,
+	userName,
+}) => {
 	const [subject, setSubject] = useState("")
 	const [message, setMessage] = useState("")
 	const [email, setEmail] = useState("")
@@ -35,22 +38,18 @@ const EmailModal: React.FC = () => {
 		setShowFailureMessage(false)
 		setLoading(true)
 
-		const validationResult = handleValidation(
-			"User Auth Name",
-			email,
-			message,
-			subject
-		)
+		const validationResult = handleValidation(userName, email, message, subject)
 
 		console.log("Validation Result", validationResult)
 
 		if (validationResult.isValid) {
 			const result = await fetch("/api/sendgrid", {
 				body: JSON.stringify({
+					kreatorEmail,
 					email,
 					subject,
 					message,
-					fullname: "User Auth Name",
+					fullname: userName,
 				}),
 				headers: { "Content-Type": "application/json" },
 				method: "POST",
@@ -244,7 +243,10 @@ const DetailsPage: NextPage = ({
 								onOk={() => setShowEmailModal(false)}
 								onCancel={() => setShowEmailModal(false)}
 							>
-								<EmailModal />
+								<EmailModal
+									kreatorEmail={job?.kreator.email}
+									userName={session?.user?.name as string}
+								/>
 							</Modal>
 						</div>
 					</div>

@@ -1,7 +1,7 @@
-import sendgrid from "@sendgrid/mail";
-import type { NextApiRequest, NextApiResponse } from "next";
+import sendgrid from "@sendgrid/mail"
+import type { NextApiRequest, NextApiResponse } from "next"
 
-sendgrid.setApiKey(process.env.SENDGRID_API_KEY as string);
+sendgrid.setApiKey(process.env.SENDGRID_API_KEY as string)
 
 export default async function sendEmail(
 	req: NextApiRequest,
@@ -9,7 +9,7 @@ export default async function sendEmail(
 ) {
 	try {
 		await sendgrid.send({
-			to: "digikoncept64@gmail.com",
+			to: req.body.kreatorEmail,
 			from: "smashbros54@gmail.com",
 			subject: req.body.subject,
 			text: req.body.message,
@@ -37,24 +37,19 @@ export default async function sendEmail(
               <p>${req.body.message}</p>
               <br>
               </div>
-              <img src="https://manuarora.in/logo.png" class="logo-image" style="height: 50px;width: 50px;border-radius: 5px;overflow: hidden;">
-              <p class="footer" style="font-size: 16px;padding-bottom: 20px;border-bottom: 1px solid #D1D5DB;">Regards<br>Manu Arora<br>Software Developer<br>+91 9587738861</p>
+              
+              <p class="footer" style="font-size: 16px;padding-bottom: 20px;border-bottom: 1px solid #D1D5DB;">Regards<br>Samuel Paintsil<br>HR, DigiKoncept<br>+233501083601</p>
               <div class="footer-links" style="display: flex;justify-content: center;align-items: center;">
-                <a href="https://manuarora.in/" style="text-decoration: none;margin: 8px;color: #9CA3AF;">Website</a>
-                <a href="https://manuarora.in/blog/" style="text-decoration: none;margin: 8px;color: #9CA3AF;">Blog</a>
-                <a href="https://github.com/manuarora700/" style="text-decoration: none;margin: 8px;color: #9CA3AF;">GitHub</a>
-                <a href="https://instagram.com/maninthere/" style="text-decoration: none;margin: 8px;color: #9CA3AF;">Instagram</a>
-                <a href="https://linkedin.com/in/manuarora28/" style="text-decoration: none;margin: 8px;color: #9CA3AF;">LinkedIn</a>
-                <a href="https://twitter.com/mannupaaji/" style="text-decoration: none;margin: 8px;color: #9CA3AF;">Twitter</a>
-                
+                <a href="https://digi-koncept.vercel.app/" style="text-decoration: none;margin: 8px;color: #9CA3AF;">Website</a>
+                <a href="https://samuelpaintsil-beta.netlify.app" style="text-decoration: none;margin: 8px;color: #9CA3AF;">Blog</a>
               </div>
               </div>
       </body>
       </html>`,
-		});
+		})
 	} catch (error: any) {
-		return res.status(error.statusCode || 500).json({ error: error.message });
+		return res.status(error.statusCode || 500).json({ error: error.message })
 	}
 
-	return res.status(200).json({ success: true });
+	return res.status(200).json({ success: true })
 }
