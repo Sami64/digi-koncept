@@ -284,8 +284,6 @@ export default DetailsPage
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 	const { details } = query
-	console.log("query details", details)
 	const job = await retrieveJob(details as string)
-	console.log("job", job)
 	return { props: { job } }
 }

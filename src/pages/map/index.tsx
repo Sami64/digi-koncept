@@ -4,7 +4,7 @@ import "mapbox-gl/dist/mapbox-gl.css"
 import type {
 	GetServerSideProps,
 	InferGetServerSidePropsType,
-	NextPage,
+	NextPage
 } from "next"
 import Image from "next/image"
 import { Ref, useEffect, useMemo, useRef, useState } from "react"
@@ -41,22 +41,27 @@ const MapHome: NextPage = ({
 			kreator: Kreator
 		}[] = []
 
+		console.log('memo locations', jobLocations)
+		console.log('user location', userLocation)
+
 		jobLocations.forEach(
-			(location: {
+			async  (location: {
 				id: string
 				lat: number
 				lng: number
 				kreator: Kreator
 			}) => {
 				if (
-					isPointWithinRadius(
+					 isPointWithinRadius(
 						{ latitude: location.lat, longitude: location.lng },
 						userLocation,
-						5000
+						25000
 					)
 				) {
 					filteredLocations.push(location)
+
 				}
+				console.log('locations', filteredLocations)
 			}
 		)
 
@@ -106,7 +111,7 @@ const MapHome: NextPage = ({
 				</Marker>
 			)
 		)
-	}, [userLocation])
+	}, [userLocation, jobLocations])
 
 	const [viewState, setViewState] = useState({
 		longitude: userLocation.longitude,
@@ -142,6 +147,11 @@ const MapHome: NextPage = ({
 
 	const onMapLoad = () => {
 		console.log(userLocation)
+
+		mapRef?.current?.flyTo({
+			center: [userLocation.longitude, userLocation.latitude],
+			essential: true,
+		})
 
 		mapRef?.current?.flyTo({
 			center: [userLocation.longitude, userLocation.latitude],
@@ -220,6 +230,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 	}[] = []
 
 	const locations: JobLocation[] = await retrieveJobLocations()
+	console.log('retrieved', locations)
 	const kreators: Kreator[] = await retrieveKreators()
 	locations.forEach((location) => {
 		let k = kreators.filter((kreator) => kreator.id === location.id)
@@ -230,6 +241,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
 			})
 		})
 	})
+
+	console.log('job locatios', jobLocations)
 
 	return {
 		props: { jobLocations },
