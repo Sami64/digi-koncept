@@ -38,7 +38,7 @@ export default async function sendEmail(
               <br>
               </div>
               
-              <p class="footer" style="font-size: 16px;padding-bottom: 20px;border-bottom: 1px solid #D1D5DB;">Regards<br>Samuel Paintsil<br>HR, DigiKoncept<br>+233501083601</p>
+              <p class="footer" style="font-size: 16px;padding-bottom: 20px;border-bottom: 1px solid #D1D5DB;">Regards<br>Samuel Kow Paintsil<br>HR, DigiKoncept<br>+233501083601</p>
               <div class="footer-links" style="display: flex;justify-content: center;align-items: center;">
                 <a href="https://digi-koncept.vercel.app/" style="text-decoration: none;margin: 8px;color: #9CA3AF;">Website</a>
                 <a href="https://samuelpaintsil-beta.netlify.app" style="text-decoration: none;margin: 8px;color: #9CA3AF;">Blog</a>
