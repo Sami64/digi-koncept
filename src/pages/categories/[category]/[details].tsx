@@ -73,8 +73,7 @@ const EmailModal: React.FC<{ kreatorEmail: string; userName: string }> = ({
 		<div>
 			<form
 				className="flex flex-col px-8 py-8 bg-white "
-				onSubmit={handleOnSubmit}
-			>
+				onSubmit={handleOnSubmit}>
 				<h1 className="text-2xl font-bold ">Send an email</h1>
 
 				{/* <label htmlFor="fullname" className="text-gray-500 font-light mt-8 ">
@@ -118,13 +117,11 @@ const EmailModal: React.FC<{ kreatorEmail: string; userName: string }> = ({
 					required
 					value={message}
 					onChange={(e) => setMessage(e.target.value)}
-					className="bg-transparent border-b py-2 pl-4 focus:outline-none focus:rounded-md focus:ring-1 ring-green-500 font-light text-gray-500"
-				></textarea>
+					className="bg-transparent border-b py-2 pl-4 focus:outline-none focus:rounded-md focus:ring-1 ring-green-500 font-light text-gray-500"></textarea>
 				<div className="flex flex-row items-center justify-start">
 					<button
 						disabled={loading}
-						className=" disabled:cursor-not-allowed px-10 mt-8 py-2 bg-digi_primary text-gray-50 font-bold rounded-md w-full text-lg flex flex-row items-center justify-center hover:border-gray-600 border-2 disabled:border-0"
-					>
+						className=" disabled:cursor-not-allowed px-10 mt-8 py-2 bg-digi_primary text-gray-50 font-bold rounded-md w-full text-lg flex flex-row items-center justify-center hover:border-gray-600 border-2 disabled:border-0">
 						{!loading && "Send"}
 						{loading && (
 							<span className={`mx-2 backdrop-opacity-10`}>
@@ -164,7 +161,7 @@ const DetailsPage: NextPage = ({
 			kreatorJob: job?.title,
 		})
 		if (status == 200) router.push("/chat")
-		else alert("Error occured")
+		else alert("An Error occured")
 	}
 
 	const handleStartChat = async () => {
@@ -210,8 +207,7 @@ const DetailsPage: NextPage = ({
 						<div className="grid grid-rows-2 grid-flow-col gap-1">
 							<button
 								onClick={() => setShowPhoneNumber(true)}
-								className="inline-flex bg-digi_primary items-center border text-white px-2 py-2 rounded-lg text-lg font-bold hover:shadow-xl hover:bg-white hover:text-digi_primary hover:border-digi_primary my-1"
-							>
+								className="inline-flex bg-digi_primary items-center border text-white px-2 py-2 rounded-lg text-lg font-bold hover:shadow-xl hover:bg-white hover:text-digi_primary hover:border-digi_primary my-1">
 								<PhoneIcon className="h-5 mr-1" />
 							</button>
 							<Modal
@@ -219,30 +215,26 @@ const DetailsPage: NextPage = ({
 								visible={showPhoneNumber}
 								centered
 								onOk={() => setShowPhoneNumber(false)}
-								onCancel={() => setShowPhoneNumber(false)}
-							>
+								onCancel={() => setShowPhoneNumber(false)}>
 								<p>{job?.kreator.phone}</p>
 							</Modal>
 
 							<button
 								onClick={cometChatStart}
-								className="inline-flex bg-digi_primary items-center border text-white px-2 py-2 rounded-lg text-lg font-bold hover:shadow-xl hover:bg-white hover:text-digi_primary hover:border-digi_primary my-1"
-							>
+								className="inline-flex bg-digi_primary items-center border text-white px-2 py-2 rounded-lg text-lg font-bold hover:shadow-xl hover:bg-white hover:text-digi_primary hover:border-digi_primary my-1">
 								<ChatIcon className="h-5 mr-1" />
 							</button>
 
 							<button
 								onClick={() => setShowEmailModal(true)}
-								className="inline-flex bg-digi_primary items-center border text-white px-2 py-2 rounded-lg text-lg font-bold hover:shadow-xl hover:bg-white hover:text-digi_primary hover:border-digi_primary my-1"
-							>
+								className="inline-flex bg-digi_primary items-center border text-white px-2 py-2 rounded-lg text-lg font-bold hover:shadow-xl hover:bg-white hover:text-digi_primary hover:border-digi_primary my-1">
 								<EmailIcon className="h-5 mr-1" />
 							</button>
 							<Modal
 								centered
 								visible={showEmailModal}
 								onOk={() => setShowEmailModal(false)}
-								onCancel={() => setShowEmailModal(false)}
-							>
+								onCancel={() => setShowEmailModal(false)}>
 								<EmailModal
 									kreatorEmail={job?.kreator.email}
 									userName={session?.user?.name as string}
