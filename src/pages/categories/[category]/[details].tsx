@@ -211,7 +211,7 @@ const DetailsPage: NextPage = ({
 								<PhoneIcon className="h-5 mr-1" />
 							</button>
 							<Modal
-								title="Kreator Phone Number"
+								title="Kreator's Phone Number"
 								visible={showPhoneNumber}
 								centered
 								onOk={() => setShowPhoneNumber(false)}
